@@ -1,6 +1,6 @@
 namespace Backend.Repositories;
 
-public interface IBlueJobsRepo
+public interface IServicesRepo
 {
     
 }
