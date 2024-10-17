@@ -7,11 +7,15 @@ const Home = ()=>{
     const handleClick = ()=>{
         navigate("/login");
     }
+    const handleClickSignUp = ()=>{
+        navigate("/SignUp");
+    }
 
     return (
         <div>
             <p>Home Page</p>
             <button onClick={handleClick}>Go to login!</button>
+            <button onClick={handleClickSignUp}>Sign Up!</button>
         </div>
     );
 };
