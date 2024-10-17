@@ -14,10 +14,35 @@ public class AdminController : ControllerBase
         _adminRepository = adminRepository;
     }
 
-    [HttpGet("admin")]
+    [HttpGet("admin/users")]
     public IActionResult GetAllUsers()
     {
         var result = _adminRepository.GetAllUsers();
         return Ok(result);
     }
+    
+    [HttpPost("admin/users")]
+    public IActionResult CreateUserByAdmin()
+    {
+        return Ok();
+    }
+    
+    [HttpGet("admin/users/{id}")]
+    public IActionResult GetUserById()
+    {
+        return Ok();
+    }
+
+    [HttpPut("admin/users/{id}")]
+    public IActionResult UpdateUserById()
+    {
+        return Ok();
+    }
+
+    [HttpDelete("admin/users/{id}")]
+    public IActionResult DeleteUserById()
+    {
+        return Ok();
+    }
+    
 }
