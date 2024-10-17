@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers;
 [ApiController]
 [Route("[controller]")]
-public class BlueJobsController : ControllerBase
+public class ServiceController : ControllerBase
 {
     private readonly IBlueJobsRepo _blueprintJobsRepo;
 
-    public BlueJobsController(IBlueJobsRepo blueJobsRepo)
+    public ServiceController(IBlueJobsRepo blueJobsRepo)
     {
         _blueprintJobsRepo = blueJobsRepo;
     }
@@ -19,14 +19,14 @@ public class BlueJobsController : ControllerBase
         throw new NotImplementedException();
     }
 
-    [HttpGet("employers")]
-    public IActionResult GetAllEmployers()
+    [HttpPost("login")]
+    public IActionResult Login()
     {
         throw new NotImplementedException();
     }
 
-    [HttpGet("applicants")]
-    public IActionResult GetAllApplicants()
+    [HttpPost("signUp")]
+    public IActionResult SignUp()
     {
         throw new NotImplementedException();
     }
