@@ -6,9 +6,9 @@ namespace Backend.Controllers;
 [Route("[controller]")]
 public class ServiceController : ControllerBase
 {
-    private readonly IBlueJobsRepo _blueprintJobsRepo;
+    private readonly IServicesRepo _blueprintJobsRepo;
 
-    public ServiceController(IBlueJobsRepo blueJobsRepo)
+    public ServiceController(IServicesRepo blueJobsRepo)
     {
         _blueprintJobsRepo = blueJobsRepo;
     }
@@ -16,7 +16,8 @@ public class ServiceController : ControllerBase
     [HttpGet("jobs")]
     public IActionResult GetAllJobOffers()
     {
-        throw new NotImplementedException();
+        var jobs = new List<string> { "Welder", "Painter", "Dogsitter" };
+        return Ok(jobs);
     }
 
     [HttpPost("login")]
