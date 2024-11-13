@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Backend.Model;
 
 public class User
 {
-    private Guid _id;
-    private string _username;
-    private string _email;
-    private string _password;
+    [Key]
+    public Guid _id { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string Email { get; set; }
 }
