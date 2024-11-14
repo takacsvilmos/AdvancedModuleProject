@@ -28,13 +28,14 @@ builder.Services.AddCors(options =>
 });
 
 // Enable user secrets (only in development environment)
-if (builder.Environment.IsDevelopment())
+/*if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>(); // or specify the class
-}
+}*/
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
 var app = builder.Build();
 

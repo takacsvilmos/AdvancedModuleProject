@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <GenerateUserSecrets>true</GenerateUserSecrets>
       <UserSecretsId>fcaf7ced-c839-4cd4-b8ea-9a78fb2727aa</UserSecretsId>
+      <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +17,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />        
     </ItemGroup>
 
 </Project>
