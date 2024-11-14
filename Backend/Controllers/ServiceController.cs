@@ -1,6 +1,8 @@
 using Backend.Data;
 using Backend.Model;
+using Backend.Model.UserMaker;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,15 +28,27 @@ public class ServiceController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login()
+    public IActionResult Login([FromBody] LoginRequest loginRequest)
     {
-        throw new NotImplementedException();
+        var user = _context.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
+        if (user == null)
+        {
+            return Unauthorized(new{message = "User not found"});
+        }else if (user.Password != loginRequest.Password)
+        {
+            return Unauthorized(new{message = "Incorrect email or password"});
+        }
+
+        return Ok(new { message = "Login successful", user });
     }
 
     [HttpPost("signUp")]
-    public IActionResult SignUp()
+    public async Task<ActionResult<User>> SignUp([FromBody] User user)
     {
-        throw new NotImplementedException();
+        var newUser = UserMaker.CreateUser(user.Role, user.Email, user.Password);
+        _context.Users.Add(newUser);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetUsers), new { id = newUser._id}, user);
     }
     
     [HttpGet]
