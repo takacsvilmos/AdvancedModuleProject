@@ -1,25 +1,64 @@
-import { useNavigate } from "react-router-dom";
+import "./Login&SignUp.css";
+import { useState } from "react";
 
-const SignUp = () => {
-    const navigate = useNavigate();
+type LoginProps ={
+    setView: (view: "home" | "login" | "signup") => void
+}
 
-    const handleClick = ()=>{
-        navigate("/login");
+const SignUp = ({setView} : LoginProps) => {
+//const [user, setUser] = useState<User>({Email: "", Password: "", Role: ""})
+const [role, setRole] = useState("")
+const [password, setPassword] = useState("")
+const [email, setEmail] = useState("")
+
+
+const handleSignUp = async (e:any) => {
+    e.preventDefault()
+
+    const user = { Email: email, Password: password, Role: role }
+
+    try {
+        const response = await fetch('http://localhost:5177/Service/signUp', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user)
+        })
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+            alert("Registration succefull")
+            setView("home")
+        }
+        
+
+    } catch (error) {
+        console.error("Error:", error)
     }
+};
+
 
     return (
-        <div>
-            <p>Sign Up</p>
-            <form action="">
-                <label htmlFor="username">username:</label>
-                <input name="username" type="text" required/>
-                <label htmlFor="password">password:</label>
-                <input name="password" type="text" required/>
-                <label htmlFor="email">email:</label>
-                <input name="email" type="email" required/>
-                <button>Sign Up</button>
-            </form>
-            <button onClick={handleClick}>Back to home</button>
+        <div className="container">
+            <div className="form-box">
+                <h1>Sign Up</h1>
+                <form onSubmit={(e)=>handleSignUp(e)}>
+                    <input type="radio" id="Employer" name="role" value="Employer" onChange={(e)=>setRole(e.target.value)} />
+                    <label htmlFor="Employer">Employer</label>
+
+                    <input type="radio" id="Applicant" name="role" value="Applicant" onChange={(e)=>setRole(e.target.value)} />
+                    <label htmlFor="Applicant">Applicant</label><br />
+
+                    <label htmlFor="password">Password:</label>
+                    <input name="password" type="password" onChange={(e)=>setPassword(e.target.value)} required /><br />
+
+                    <label htmlFor="email">Email:</label>
+                    <input name="email" type="email" onChange={(e)=>setEmail(e.target.value)} required /><br />
+
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
         </div>
     );
 };

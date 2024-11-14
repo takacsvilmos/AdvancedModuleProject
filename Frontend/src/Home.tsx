@@ -1,52 +1,63 @@
-import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useState, useContext } from "react";
+import "./Home.css";
+import SignUp from "./SignUp";
+import Login from "./Login";
+import { AuthContext } from "./Services/Auth";
 
-const Home = ()=>{
-    const navigate = useNavigate();
-    const [JobsData, setJobsData] = useState<string[]>([]);
+type View = "home" | "login" | "signup"
 
-    useEffect(()=>{
-        const fetchJobs = async () => {
-            try {
-                const response = await fetch("https://localhost:7119/Service/jobs", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+const Home = () => {
+    const [view, setView] = useState<View>("home");
+    const { isLoggedIn, logOut } = useContext(AuthContext);
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+    const handleClickLogin = () => {
+        setView("login");
+    };
 
-                const data = await response.json(); // Parse the JSON response
-                setJobsData(data); // Update the state with fetched jobs
-            } catch (error) {
-                console.error("Error fetching jobs:", error);
-            }
-        };
+    const handleClickSignUp = () => {
+        setView("signup");
+    };
 
-        fetchJobs();
-    }, [])
+    const handleHomeClick = () => {
+        setView("home");
+    };
 
-    const handleClick = ()=>{
-        navigate("/login");
-    }
-    const handleClickSignUp = ()=>{
-        navigate("/SignUp");
-    }
+    const handleLogout = () => {
+        logOut();
+        handleHomeClick(); 
+    };
 
     return (
-        <div>
-            <h1>Home Page</h1>
-            <ul>
-                {
-                    JobsData.map(job => <li>{job}</li>)
-                }
-            </ul>
-            <button onClick={handleClick}>Go to login!</button>
-            <button onClick={handleClickSignUp}>Sign Up!</button>
-        </div>
+        <>
+            <div className="navbar">
+                <h1>BlueJobs</h1>
+                <div>
+                    {view !== "home" && (
+                        <button onClick={handleHomeClick}>Back to home</button>
+                    )}
+                    {isLoggedIn ? (
+                        <div>
+                            <button onClick={() => { alert("Profile Page") }}>Profile</button>
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    ) : (
+                        <div>
+                            {view !== "login" && (
+                                <button onClick={handleClickLogin}>Go to login!</button>
+                            )}
+                            {view !== "signup" && (
+                                <button onClick={handleClickSignUp}>Sign Up!</button>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="content">
+                {isLoggedIn? view === "home" && <h1>Welcome!</h1>:view === "home" && <h1>HomePage</h1>}
+                {view === "signup" && <SignUp setView={setView}/>}
+                {view === "login" && <Login setView={setView}/>}
+            </div>
+        </>
     );
 };
 
