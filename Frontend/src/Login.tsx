@@ -18,7 +18,7 @@ const Login = ({ setView }: LoginProps) => {
 
         const loginUser = { email, password }
         try {
-            const res = await fetch('http://localhost:5177/Service/login',{
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/Service/login`,{
             method: "Post",    
             headers: {
                 "Content-Type": "application/json"
