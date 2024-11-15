@@ -18,7 +18,7 @@ const handleSignUp = async (e:any) => {
     const user = { Email: email, Password: password, Role: role }
 
     try {
-        const response = await fetch('http://localhost:5177/Service/signUp', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/Service/signUp`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
