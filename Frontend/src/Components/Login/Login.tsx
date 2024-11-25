@@ -1,6 +1,6 @@
 import "./Login&SignUp.css";
 import { useState, useContext } from "react";
-import { AuthContext } from "./Services/Auth";
+import { AuthContext } from "../../Services/Auth";
 
 type LoginProps = { 
     setView: (view: "home" | "login" | "signup" ) => void ;
@@ -13,7 +13,7 @@ const Login = ({ setView }: LoginProps) => {
 
     
 
-    const handleSubmit = async (e: any)=>{
+    /* const handleSubmit = async (e: any)=>{
         e.preventDefault()
 
         const loginUser = { email, password }
@@ -35,7 +35,11 @@ const Login = ({ setView }: LoginProps) => {
             console.log("Error:", error)
         }
 
-    }
+    } */
+   const handleSubmit = () => {
+    logIn()
+    setView("home")
+   }
 
     return (
         <div className="container">
@@ -44,10 +48,10 @@ const Login = ({ setView }: LoginProps) => {
                 <form onSubmit={handleSubmit}>
 
                     <label htmlFor="email">Email:</label>
-                    <input name="email" type="email" onChange={(e)=> setEmail(e.target.value)} required /><br />
+                    <input name="email" type="email" onChange={(e)=> setEmail(e.target.value)} /><br />
 
                     <label htmlFor="password">Password:</label>
-                    <input name="password" type="password" onChange={(e)=> setPassword(e.target.value)} required /><br />
+                    <input name="password" type="password" onChange={(e)=> setPassword(e.target.value)} /><br />
 
                     <button type="submit">LogIn</button>
                 </form>

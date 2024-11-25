@@ -1,14 +1,17 @@
 import { useState, useContext } from "react";
 import "./Home.css";
-import SignUp from "./SignUp";
-import Login from "./Login";
-import { AuthContext } from "./Services/Auth";
-
+import SignUp from "../Login/SignUp";
+import Login from "../Login/Login";
+import { AuthContext } from "../../Services/Auth";
+import { ProfilePanelContext } from "../../Services/ProfilePanalAuth";
+import ProfilePanel from "../ProfilePanel/ProfilePanel";
+import JobOffer from "../JobOffer/JobOffer";
 type View = "home" | "login" | "signup"
 
 const Home = () => {
     const [view, setView] = useState<View>("home");
     const { isLoggedIn, logOut } = useContext(AuthContext);
+    const { isOpen, onClose, doOpen} = useContext(ProfilePanelContext);
 
     const handleClickLogin = () => {
         setView("login");
@@ -26,6 +29,16 @@ const Home = () => {
         logOut();
         handleHomeClick(); 
     };
+console.log(isOpen);
+
+const handleProfileClick = () =>{
+
+    if(isOpen) {
+        onClose()
+    } else{
+        doOpen()
+    }
+}
 
     return (
         <>
@@ -37,7 +50,7 @@ const Home = () => {
                     )}
                     {isLoggedIn ? (
                         <div>
-                            <button onClick={() => { alert("Profile Page") }}>Profile</button>
+                            <button onClick={ handleProfileClick }>Profile</button>
                             <button onClick={handleLogout}>Logout</button>
                         </div>
                     ) : (
@@ -54,9 +67,11 @@ const Home = () => {
             </div>
             <div className="content">
                 {isLoggedIn? view === "home" && <h1>Welcome!</h1>:view === "home" && <h1>HomePage</h1>}
+                <JobOffer/>
                 {view === "signup" && <SignUp setView={setView}/>}
                 {view === "login" && <Login setView={setView}/>}
             </div>
+            <ProfilePanel/>
         </>
     );
 };
