@@ -1,4 +1,6 @@
+using System.Net;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -14,10 +16,10 @@ public class AdminController : ControllerBase
         _adminRepository = adminRepository;
     }
 
-    [HttpGet("admin/users")]
-    public IActionResult GetAllUsers()
+    [HttpGet("admin/users"), Authorize]
+    public async Task <IActionResult> GetAllUsers()
     {
-        var result = _adminRepository.GetAllUsers();
+        var result = await _adminRepository.GetAllUsers();
         return Ok(result);
     }
     

@@ -3,7 +3,7 @@ namespace Backend.Repositories;
 public class AdminRepo : IAdminRepo
 {
     private List<string> users = new List<string> { "Admin", "Admin2", "Admin3", "Admin4", "Admin5" };
-    public List<string> GetAllUsers()
+    public async Task<List<string>> GetAllUsers()
     {
         return users;
     }
