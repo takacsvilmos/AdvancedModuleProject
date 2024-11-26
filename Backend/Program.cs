@@ -1,7 +1,9 @@
 using System.Text;
 using Backend.Data;
 using Backend.Repositories;
+using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IAdminRepo,AdminRepo>();
 builder.Services.AddSingleton<IServicesRepo,ServicesRepo>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddSingleton<IApplicantRepo,ApplicantRepo>();
 //builder.Services.AddSingleton<IEmployerRepo,EmployerRepo>();
 
@@ -30,11 +33,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Enable user secrets (only in development environment)
-/*if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddUserSecrets<Program>(); // or specify the class
-}*/
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -71,6 +69,24 @@ builder.Services
         };
     });
 
+builder.Services.AddDbContext<UsersContext>(options =>
+{
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services
+    .AddIdentityCore<IdentityUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddEntityFrameworkStores<UsersContext>();
 
 
 var app = builder.Build();
