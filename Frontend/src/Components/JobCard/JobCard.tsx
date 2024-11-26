@@ -1,6 +1,6 @@
 import "./JobCard.css"
 
-type JobOffer = {name: string, location: string, rating: number, recommendedFor: string, date: string}
+type JobOffer = {id: number,name: string, location: string, rating: number, recommendedFor: string, date: string,description: string}
 
 type JobCardProps = {
     offer: JobOffer;

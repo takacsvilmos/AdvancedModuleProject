@@ -6,12 +6,21 @@ import { AuthContext } from "../../Services/Auth";
 import { ProfilePanelContext } from "../../Services/ProfilePanalAuth";
 import ProfilePanel from "../ProfilePanel/ProfilePanel";
 import JobOffer from "../JobOffer/JobOffer";
+import { UserContext } from "../../Services/User";
 type View = "home" | "login" | "signup"
 
 const Home = () => {
     const [view, setView] = useState<View>("home");
     const { isLoggedIn, logOut } = useContext(AuthContext);
-    const { isOpen, onClose, doOpen} = useContext(ProfilePanelContext);
+    const { isOpen, onClose, doOpen } = useContext(ProfilePanelContext);
+    const userContext = useContext(UserContext);
+
+    if (!userContext) {
+        throw new Error("No User");
+    }
+
+    const { user } = userContext;
+
 
     const handleClickLogin = () => {
         setView("login");
@@ -27,18 +36,18 @@ const Home = () => {
 
     const handleLogout = () => {
         logOut();
-        handleHomeClick(); 
+        handleHomeClick();
     };
-console.log(isOpen);
+    console.log(isOpen);
 
-const handleProfileClick = () =>{
+    const handleProfileClick = () => {
 
-    if(isOpen) {
-        onClose()
-    } else{
-        doOpen()
+        if (isOpen) {
+            onClose()
+        } else {
+            doOpen()
+        }
     }
-}
 
     return (
         <>
@@ -50,7 +59,7 @@ const handleProfileClick = () =>{
                     )}
                     {isLoggedIn ? (
                         <div>
-                            <button onClick={ handleProfileClick }>Profile</button>
+                            <button onClick={handleProfileClick}>Profile</button>
                             <button onClick={handleLogout}>Logout</button>
                         </div>
                     ) : (
@@ -66,12 +75,12 @@ const handleProfileClick = () =>{
                 </div>
             </div>
             <div className="content">
-                {isLoggedIn? view === "home" && <h1>Welcome!</h1>:view === "home" && <h1>HomePage</h1>}
-                <JobOffer/>
-                {view === "signup" && <SignUp setView={setView}/>}
-                {view === "login" && <Login setView={setView}/>}
+                {isLoggedIn ? view === "home" && <h1>Welcome {user.name}!</h1> : view === "home" && <h1>HomePage</h1>}
+                {view !== "signup" && view !== "login" && <JobOffer />}
+                {view === "signup" && <SignUp setView={setView} />}
+                {view === "login" && <Login setView={setView} />}
             </div>
-            <ProfilePanel/>
+            <ProfilePanel />
         </>
     );
 };
