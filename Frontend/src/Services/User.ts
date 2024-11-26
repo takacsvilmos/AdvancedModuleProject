@@ -1,12 +1,27 @@
 import { createContext } from "react";
 
+export type WorkExperience = {
+    id: number;
+    company: string;
+    role: string;
+    startingdate: string;
+    enddate: string;
+    description: string;
+}
+
+
 export type User = {
   id: number;
   name: string;
   age: number;
   role: string;
-  skills: string[];
-  cv: string;
+  language: string[];
+  profession: string[];
+  address: string;
+  phone: string;
+  email: string;
+  description: string;
+  workexperience: WorkExperience[]
 };
 
 export type UserContextType = {
