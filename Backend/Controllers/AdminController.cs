@@ -16,7 +16,7 @@ public class AdminController : ControllerBase
         _adminRepository = adminRepository;
     }
 
-    [HttpGet("admin/users"), Authorize]
+    [HttpGet("admin/users"), Authorize(Roles="Admin")]
     public async Task <IActionResult> GetAllUsers()
     {
         var result = await _adminRepository.GetAllUsers();
