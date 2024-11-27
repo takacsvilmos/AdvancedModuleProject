@@ -1,55 +1,22 @@
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../../Services/Auth";
-import { ProfilePanelContext } from "../../Services/ProfilePanalAuth";
 import "./UserCV.css"
 import { UserContext } from "../../Services/User";
 import EditableWorkExp from "./EditableWorkExp";
 import PersonalData from "./PersonalData";
 import Introductionedit from "./Introductionedit";
+import Navbar from "../Navbar";
 
 const UserCv = () => {
-    const navigate = useNavigate()
-    const { isOpen, onClose, doOpen } = useContext(ProfilePanelContext)
-    const { logOut } = useContext(AuthContext)
-    const userContext = useContext(UserContext)
+const userContext = useContext(UserContext)
     if (!userContext) {
         throw new Error("No User")
     }
 
     const { user } = userContext
 
-
-    const handleProfileClick = () => {
-
-        if (isOpen) {
-            onClose()
-        } else {
-            doOpen()
-        }
-
-
-    }
-    const handleLogout = () => {
-        logOut();
-        navigate("/")
-
-    };
-    const backToHome = () => {
-        navigate("/")
-    }
     return (
         <div>
-            <div className="navbar">
-                <h1>BlueJobs</h1>
-
-                <div>
-                    <button onClick={handleProfileClick}>Profile</button>
-                    <button onClick={handleLogout}>Logout</button>
-                    <button onClick={backToHome}>Home</button>
-                </div>
-
-            </div>
+            <Navbar />
             <div className="CV-container">
                 <div className="leftsidecv">
                     {<PersonalData personalData={user}/>}
