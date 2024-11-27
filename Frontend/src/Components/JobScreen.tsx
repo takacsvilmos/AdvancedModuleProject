@@ -59,35 +59,28 @@ const JobScreen = () => {
 
     return (
         <>
-
-           <Navbar />
+            <Navbar />
             <div className="jobScreenContainer">
                 <div className="jobScreenCompany">
-                    <>
-                        {selectedCompany ? (
-                            <Company company={selectedCompany} jobs={selectedJobs} />
-                        ) : (
-                            <p>Company not found</p>
-                        )}
-                    </>
-
+                    {selectedCompany ? (
+                        <Company company={selectedCompany} jobs={selectedJobs} />
+                    ) : (
+                        <p>Company not found</p>
+                    )}
                 </div>
                 <div className="jobScreenJob">
-                    <div><h1>Job description</h1></div>
-                    <div>{currentJob.name}</div>
-                    <div>Rating: {currentJob.rating}</div>
-                    <div>Looking for: {currentJob.recommendedFor}</div>
-                    <div>Where: {currentJob.location}</div>
-                    <div>Created: {currentJob.date}</div>
+                    <h1>Job description</h1>
+                    <p>{currentJob.name}</p>
+                    <p>Rating: {currentJob.rating}</p>
+                    <p>Looking for: {currentJob.recommendedFor}</p>
+                    <p>Where: {currentJob.location}</p>
+                    <p>Created: {currentJob.date}</p>
                     <p>{currentJob.description}</p>
-                    <div><button>Apply with CV</button></div>
+                    <button>Apply with CV</button>
                 </div>
-
-            
-            
-
+            </div>
             <ProfilePanel />
         </>
-    )
+    );
 }
 export default JobScreen
