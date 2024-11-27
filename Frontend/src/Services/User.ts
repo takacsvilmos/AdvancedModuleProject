@@ -22,6 +22,7 @@ export type User = {
   email: string;
   description: string;
   workexperience: WorkExperience[]
+  image: string | null; 
 };
 
 export type UserContextType = {

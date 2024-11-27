@@ -1,4 +1,3 @@
-import { UserContextType } from "../../Services/User"
 import { useState } from "react"
 import "./UserCV.css"
 

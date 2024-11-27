@@ -1,8 +1,5 @@
 import { JobContext } from "../Services/JobContext";
 import { useContext } from "react";
-import { ProfilePanelContext } from "../Services/ProfilePanalAuth";
-import { AuthContext } from "../Services/Auth";
-import { useNavigate } from "react-router-dom";
 import ProfilePanel from "./ProfilePanel/ProfilePanel";
 import Company from "./Company/Company";
 import { CompanyType } from "../Services/CompanyTypes";
@@ -10,14 +7,13 @@ import JobOffer, { jobOffers } from "./JobOffer/JobOffer";
 import "./JobScreen.css";
 
 import "./ProfilePanel/ProfilePanel.css"
+import Navbar from "./Navbar";
 
 
 
 const JobScreen = () => {
     const jobContext = useContext(JobContext);
-    const { isOpen, onClose, doOpen } = useContext(ProfilePanelContext);
-    const { logOut } = useContext(AuthContext)
-    const navigate = useNavigate()
+
 
     const c_description: string = "We specialize in  off-shore oil rigs on the seas of England "
     const c_description2: string = "We specialize in wood related work "
@@ -44,32 +40,16 @@ const JobScreen = () => {
 
 
     if (!jobContext) {
-        throw new Error("JobContext must be used within a JobContext.Provider");
+        throw new Error("No Data")
     }
 
     const { currentJob } = jobContext;
 
     if (!currentJob) {
+
         return <div>No job selected. Please go back and select a job.</div>;
-    }
-    const handleProfileClick = () => {
-
-        if (isOpen) {
-            onClose()
-        } else {
-            doOpen()
-        }
-
-
-    }
-    const handleLogout = () => {
-        logOut();
-        navigate("/")
-
-    };
-    const backToHome = () => {
-        navigate("/")
-    }
+ }
+   
 
     const selectedCompany = companies.find((company) => company?.id === currentJob.company_id);
     const selectedJobs = selectedCompany?.job_offers.filter(job => job.id !== currentJob.id);
@@ -79,16 +59,8 @@ const JobScreen = () => {
 
     return (
         <>
-            <div className="navbar">
-                <h1>BlueJobs</h1>
 
-                <div>
-                    <button onClick={handleProfileClick}>Profile</button>
-                    <button onClick={handleLogout}>Logout</button>
-                    <button onClick={backToHome}>Home</button>
-                </div>
-
-            </div>
+           <Navbar />
             <div className="jobScreenContainer">
                 <div className="jobScreenCompany">
                     <>
@@ -110,7 +82,9 @@ const JobScreen = () => {
                     <p>{currentJob.description}</p>
                     <div><button>Apply with CV</button></div>
                 </div>
-            </div>
+
+            
+            
 
             <ProfilePanel />
         </>
