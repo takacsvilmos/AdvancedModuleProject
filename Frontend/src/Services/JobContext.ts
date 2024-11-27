@@ -1,5 +1,6 @@
 import { createContext, SetStateAction } from 'react';
 
+
 export type JobOffer = {
     id: number,
     name: string, 
@@ -7,7 +8,8 @@ export type JobOffer = {
     rating: number, 
     recommendedFor: string, 
     date: string,
-    description: string
+    description: string,
+    company_id: number
 } | null;
 
 type JobOfferContextType = {
