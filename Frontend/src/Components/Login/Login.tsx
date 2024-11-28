@@ -1,15 +1,21 @@
 import "./Login&SignUp.css";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../Services/Auth";
+import { UserContext } from "../../Services/User";
 
 type LoginProps = { 
-    setView: (view: "home" | "login" | "signup" ) => void ;
+    setView: (view: "home" | "login" | "signup" | "admin" ) => void ;
 }
 
 const Login = ({ setView }: LoginProps) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { logIn} = useContext(AuthContext)
+    const userContext = useContext(UserContext)
+    if(!userContext){
+        throw new Error("no user!")
+    }
+    const { user } = userContext
 
     
 
@@ -38,7 +44,11 @@ const Login = ({ setView }: LoginProps) => {
     } */
    const handleSubmit = () => {
     logIn()
-    setView("home")
+    if(user.role === "admin"){
+        setView("admin")
+    }else{
+        setView("home") 
+    }
    }
 
     return (

@@ -41,7 +41,7 @@ function App() {
     id: 1,
     name: "John Doe",
     age: 30,
-    role: "Applyer",
+    role: "adminnnnn",
     language: ["English", "Spanish", "Deutsch"],
     profession: ["Plumber"],
     address: "123 Main St, London",
@@ -57,9 +57,8 @@ function App() {
         enddate: "Present",
         description: "Making beautiful outputs"
       }
-    ]
-
-
+    ],
+    image: "",
   })
 
   return (
