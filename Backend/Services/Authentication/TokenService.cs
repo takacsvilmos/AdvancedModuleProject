@@ -32,12 +32,11 @@ public class TokenService : ITokenService
 
     private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials,
         DateTime expiration) {
-        var issuer = _configuration["JwtConfig:ValidIssuer"];
-        var audience = _configuration["JwtConfig:ValidAudience"];
+        var config = _configuration.GetSection("JwtConfig");
         
         return new(
-            issuer,
-            audience,
+            config["ValidIssuer"],
+            config["ValidAudience"],
             claims,
             expires: expiration,
             signingCredentials: credentials
@@ -75,9 +74,10 @@ public class TokenService : ITokenService
 
     private SigningCredentials CreateSigningCredentials()
     {
+        var config = _configuration.GetSection("JwtConfig");
         return new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("!SomethingSecret!!SomethingSecret!")
+                Encoding.UTF8.GetBytes(config["IssuerSigningKey"])
             ),
             SecurityAlgorithms.HmacSha256
         );
