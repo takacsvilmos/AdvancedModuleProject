@@ -3,53 +3,67 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../Services/Auth";
 import { UserContext } from "../../Services/User";
 
-type LoginProps = { 
-    setView: (view: "home" | "login" | "signup" | "admin" ) => void ;
+type LoginProps = {
+    setView: (view: "home" | "login" | "signup" | "admin") => void;
 }
 
 const Login = ({ setView }: LoginProps) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { logIn} = useContext(AuthContext)
+    const { logIn } = useContext(AuthContext)
     const userContext = useContext(UserContext)
-    if(!userContext){
+    if (!userContext) {
         throw new Error("no user!")
     }
-    const { user } = userContext
+    const { setUser } = userContext
 
-    
 
-    /* const handleSubmit = async (e: any)=>{
+
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
 
         const loginUser = { email, password }
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/Service/login`,{
-            method: "Post",    
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(loginUser)
+            const res = await fetch(`/api/Auth/Login`, {
+                method: "Post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(loginUser)
             })
-            if(res.ok){
+            if (res.ok) {
                 const data = await res.json()
                 console.log(data)
-                 logIn()
-                 setView("home")
+                if (data.userName === "admin") {
+                    logIn()
+                    setUser((prevUser) => ({
+                        ...prevUser, // Spread the existing user properties
+                        role: "admin", // Update the role property
+                    }));
+                    setView("admin")
+                    // Save the token after receiving it from the backend
+                    sessionStorage.setItem("authToken", data.token);
+
+
+                } else {
+                    logIn()
+                    setView("home")
+                }
+
             }
         } catch (error) {
             console.log("Error:", error)
         }
 
-    } */
-   const handleSubmit = () => {
-    logIn()
-    if(user.role === "admin"){
-        setView("admin")
-    }else{
-        setView("home") 
     }
-   }
+    /* const handleSubmit = () => {
+     logIn()
+     if(user.role === "admin"){
+         setView("admin")
+     }else{
+         setView("home") 
+     }
+    } */
 
     return (
         <div className="container">
@@ -58,10 +72,10 @@ const Login = ({ setView }: LoginProps) => {
                 <form onSubmit={handleSubmit}>
 
                     <label htmlFor="email">Email:</label>
-                    <input name="email" type="email" onChange={(e)=> setEmail(e.target.value)} /><br />
+                    <input name="email" type="email" onChange={(e) => setEmail(e.target.value)} /><br />
 
                     <label htmlFor="password">Password:</label>
-                    <input name="password" type="password" onChange={(e)=> setPassword(e.target.value)} /><br />
+                    <input name="password" type="password" onChange={(e) => setPassword(e.target.value)} /><br />
 
                     <button type="submit">LogIn</button>
                 </form>
