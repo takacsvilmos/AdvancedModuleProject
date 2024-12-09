@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Services/Auth";
 import { ProfilePanelContext } from "../Services/ProfilePanalAuth";
 import { useContext } from "react";
+import { UserContext } from "../Services/User";
 
 type NavbarProps = {
     view?: "home" | "login" | "signup" | "admin"
@@ -12,6 +13,12 @@ const Navbar = ({ view, setView }: NavbarProps) => {
     const { isLoggedIn, logOut } = useContext(AuthContext)
     const { isOpen, onClose, doOpen } = useContext(ProfilePanelContext)
     const navigate = useNavigate();
+    
+    const userContext = useContext(UserContext)
+    if(!userContext){
+        throw new Error("no user!")
+    }
+    const { setUser } = userContext
 
     const handleProfileClick = () => {
         if (isOpen) {
@@ -22,6 +29,10 @@ const Navbar = ({ view, setView }: NavbarProps) => {
     }
 
     const handleLogout = () => {
+        setUser((prevUser) => ({
+            ...prevUser, // Spread the existing user properties
+            role: "", // Update the role property
+          }));
         logOut()
         if(setView) setView("home")
         navigate("/")
