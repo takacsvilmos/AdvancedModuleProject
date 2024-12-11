@@ -24,12 +24,12 @@ public class AuthService : IAuthService
         }
 
         await _userManager.AddToRoleAsync(user, role); // Adding the user to a role
-        return new AuthResult(true, email, username, "");
+        return new AuthResult(true, email, username, "", "");
     }
 
     private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
     {
-        var authResult = new AuthResult(false, email, username, "");
+        var authResult = new AuthResult(false, email, username, "", "");
 
         foreach (var error in result.Errors)
         {
@@ -60,19 +60,19 @@ public class AuthService : IAuthService
         Console.WriteLine("ROLE: " + roles[0]);
         var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
-        return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
+        return new AuthResult(true, managedUser.Email, managedUser.UserName, roles[0], accessToken);
     }
 
     private static AuthResult InvalidEmail(string email)
     {
-        var result = new AuthResult(false, email, "", "");
+        var result = new AuthResult(false, email, "", "", "");
         result.ErrorMessages.Add("Bad credentials", "Invalid email");
         return result;
     }
 
     private static AuthResult InvalidPassword(string email, string userName)
     {
-        var result = new AuthResult(false, email, userName, "");
+        var result = new AuthResult(false, email, userName, "", "");
         result.ErrorMessages.Add("Bad credentials", "Invalid password");
         return result;
     }
