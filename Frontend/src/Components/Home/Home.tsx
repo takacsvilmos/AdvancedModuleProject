@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import "./Home.css";
 import SignUp from "../Login/SignUp";
 import Login from "../Login/Login";
@@ -21,9 +21,7 @@ const Home = () => {
     }
 
     const { user } = userContext
-    useEffect(()=>{
-        console.log(user.role);
-    },[])
+    console.log(user.role)
 
     return (
         <>
