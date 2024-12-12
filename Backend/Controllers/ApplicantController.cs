@@ -1,4 +1,4 @@
-using Backend.Repositories;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -6,12 +6,6 @@ namespace Backend.Controllers;
 [Route("[controller]")]
 public class ApplicantController : ControllerBase
 {
-    private readonly IApplicantRepo _applicantRepo;
-
-    public ApplicantController(IApplicantRepo applicantRepo)
-    {
-        _applicantRepo = applicantRepo;
-    }
 
     [HttpPut("update")]
     public IActionResult UpdatePersonalData()

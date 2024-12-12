@@ -24,7 +24,7 @@ public class AuthController : ControllerBase
         }
 
         var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, request.Role);
-
+        Console.WriteLine(result);
         if (!result.Success)
         {
             AddErrors(result);

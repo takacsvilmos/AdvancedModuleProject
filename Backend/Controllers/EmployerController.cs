@@ -1,4 +1,3 @@
-using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -7,12 +6,6 @@ namespace Backend.Controllers;
 
 public class EmployerController : ControllerBase
 {
-    private readonly IEmployerRepo _employerRepo;
-
-    public EmployerController(IEmployerRepo employerRepo)
-    {
-        _employerRepo = employerRepo;
-    }
 
     [HttpPost("employer/offer/create")]
     public IActionResult CreateOffer()

@@ -11,5 +11,4 @@ public class ApplicationDbContext : DbContext
     }
 
     // Add DbSet properties here, e.g., for a User model:
-    public DbSet<User> Users { get; set; }
 }
