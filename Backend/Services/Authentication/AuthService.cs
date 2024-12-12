@@ -1,4 +1,7 @@
+using Backend.Data;
+using Backend.Model;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services;
 
@@ -54,7 +57,7 @@ public class AuthService : IAuthService
             return InvalidPassword(email, managedUser.UserName);
         }
 
-
+        
         // get the role and pass it to the TokenService
         var roles = await _userManager.GetRolesAsync(managedUser);
         Console.WriteLine("ROLE: " + roles[0]);
