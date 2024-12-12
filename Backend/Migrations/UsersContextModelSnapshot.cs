@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Backend.Migrations.Users
+namespace Backend.Migrations
 {
     [DbContext(typeof(UsersContext))]
     partial class UsersContextModelSnapshot : ModelSnapshot

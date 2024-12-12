@@ -10,5 +10,8 @@ public class ApplicationDbContext : DbContext
     {
     }
 
+    public DbSet<Applicant> Applicants { get; set; }
+    public DbSet<Employer> Employers { get; set; }
+
     // Add DbSet properties here, e.g., for a User model:
 }

@@ -1,7 +1,10 @@
+using Backend.Data;
 using Backend.Model;
 using Backend.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
@@ -10,11 +13,14 @@ namespace Backend.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
-    private static readonly Applicant HardcodedUser = new ("Applicant", "JohnDoe","john.doe@example.com", "password123");
+    private static readonly  IdentityUser HardcodedUser = new IdentityUser("TestUser");
+    private readonly ApplicationDbContext _context;
 
-    public AuthController(IAuthService authenticationService)
+    public AuthController(IAuthService authenticationService, ApplicationDbContext context)
     {
         _authenticationService = authenticationService;
+        _context = context ?? throw new ArgumentNullException(nameof(context));;
+
     }
 
     [HttpPost("Register")]
@@ -26,7 +32,23 @@ public class AuthController : ControllerBase
         }
 
         var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, request.Role);
-        Console.WriteLine(result);
+        if (request.Role == "Employer")
+        {
+            var Employer = new Employer(request.Email);
+            _context.Employers.Add(Employer);
+        }
+        else
+        {
+            var Applicant = new Applicant(request.Email);
+            _context.Applicants.Add(Applicant);
+        }
+
+        await _context.SaveChangesAsync();
+        foreach (var msg in result.ErrorMessages)
+        {
+            Console.WriteLine(msg);  
+        }
+        
         if (!result.Success)
         {
             AddErrors(result);
@@ -47,7 +69,7 @@ public class AuthController : ControllerBase
     {
         try
         {
-            HardcodedUser.WorkExperience.Add(request);
+            //HardcodedUser.WorkExperience.Add(request);
             return Ok(new { message = "Work experience added successfully", updatedUser = HardcodedUser });
         }
         catch (Exception ex)
@@ -93,10 +115,10 @@ public class AuthController : ControllerBase
                 return BadRequest(new { message = "Username is required" });
             }
 
-            if (HardcodedUser.Username != username)
+            /* if (HardcodedUser.Username != username)
             {
                 return Unauthorized(new { message = "Unauthorized" });
-            }
+            }*/
 
             return Ok(HardcodedUser);
         }

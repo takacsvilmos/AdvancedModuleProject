@@ -62,16 +62,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowFrontend",
-//       policy =>
-//       {
-    //           policy.WithOrigins("http://localhost:5173") // Allow requests from the frontend container
-    //               .AllowAnyMethod()
-    //               .AllowAnyHeader();
-    //       });
-//});
+/*builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // Allow requests from the frontend container
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});*/
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -129,7 +129,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowFrontend");
+//app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
