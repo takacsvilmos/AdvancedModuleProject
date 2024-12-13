@@ -36,7 +36,7 @@ const JobOffer = () => {
             setCurrentJob(job)
             navigate(`/joboffer/${job.id}`)
         }else{
-            alert('Login first!!!!!!!!!!!!!!')
+            alert('Login first!')
         }
         
     }
@@ -44,7 +44,7 @@ const JobOffer = () => {
     return (       
         <div className="jobContainer">
             {jobOffers.map((job, index) => (
-                <button onClick={() => handleClick(job)}><JobCard key={index} offer={job} /></button>
+                <button className="jobCardButton" onClick={() => handleClick(job)}><JobCard key={index} offer={job} /></button>
 
             ))}
             

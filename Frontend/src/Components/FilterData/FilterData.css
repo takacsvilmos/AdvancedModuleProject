@@ -1,0 +1,72 @@
+.filter-bar {
+    position: fixed; /* Fix the position of the filter bar */
+    top: 110px; /* Adjust this value to position it closer or farther from the top */
+    left: 20px; /* Adjust the left margin to position it horizontally */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: #333333; /* Dark grey background color for the filter bar */
+    border-radius: 8px; /* Rounded corners for a cleaner look */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 300px; /* Adjust the width of the filter bar */
+    z-index: 1000; /* Ensures the filter bar stays on top of other content */
+  }
+  
+  .filter-bar h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: black; /* Ensure the heading text is black */
+  }
+  
+  .filter-bar .filter-item {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .filter-bar .filter-item p {
+    color: black; /* Text color for filter labels */
+    margin: 0;
+  }
+  
+  .filter-bar .filter-item input {
+    margin-left: 10px;
+  }
+  
+  .filter-bar .filter-item input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .filter-bar .filter-item span {
+    color: black; /* Text color for filter options */
+    font-size: 14px;
+  }
+  
+  .filter-bar .filter-item label {
+    color: black; /* Text color for checkbox labels */
+  }
+  
+  .filter-bar .filter-item input[type="checkbox"]:checked + label {
+    font-weight: bold; /* Make checked filter options stand out */
+  }
+  
+  .filter-bar .filter-item .category {
+    color: black;
+    font-size: 14px;
+  }
+  
+  .filter-bar .filter-item .category input {
+    margin-right: 8px;
+  }
+  
+  .filter-bar .filter-item .category p {
+    color: black !important; /* Explicitly force text color to black for location options */
+  }
+  
+  .filter-bar .filter-item .category label {
+    color: black !important; /* Ensure category labels are also black */
+  }
+  

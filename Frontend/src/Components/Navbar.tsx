@@ -3,6 +3,7 @@ import { AuthContext } from "../Services/Auth";
 import { ProfilePanelContext } from "../Services/ProfilePanalAuth";
 import { useContext } from "react";
 import { UserContext } from "../Services/User";
+import "./Home/Home.css"
 
 type NavbarProps = {
     view?: "home" | "login" | "signup" | "admin"
@@ -57,21 +58,27 @@ const Navbar = ({ view, setView }: NavbarProps) => {
 
     return (
         <div className="navbar">
-            <h1>BlueJobs</h1>
+            <div className="logoTitle">
+            <img src="/logo.png" alt="Site Logo" className="navbar-logo"></img>
+            <h1>
+                <span className="blue">Blue</span><span className="orange">Jobs</span>
+            </h1>
+            </div>
+            
             <div>
                 {isLoggedIn ? (
-                    <div>
+                    <div className="navbarButtonContainer">
                         {view === "admin"?
-                        <button onClick={handleLogout}>Logout</button>:
+                        <button className="custom-button" onClick={handleLogout}>LOGOUT</button>:
                         <>
-                        <button onClick={handleProfileClick}>Profile</button>
-                        <button onClick={handleLogout}>Logout</button>
-                        <button onClick={handleHomeClick}>Home</button></>}
+                        <button className="custom-button" onClick={handleProfileClick}>PROFILE</button>
+                        <button className="custom-button" onClick={handleLogout}>LOGOUT</button>
+                        <button className="custom-button" onClick={handleHomeClick}>HOME</button></>}
                     </div>
                 ) : (
-                    <div>
-                        <button onClick={handleLoginClick}>Login</button>
-                        <button onClick={handleSignUpClick}>Sign Up</button>
+                    <div className="navbarButtonContainer">
+                        <button className="custom-button" onClick={handleLoginClick}>LOGIN</button>
+                        <button className="custom-button" onClick={handleSignUpClick}>SIGN UP</button>
                     </div>
                 )}
             </div>

@@ -48,20 +48,21 @@ const SignUp = ({ setView }: LoginProps) => {
             <div className="form-box">
                 <h1>Sign Up</h1>
                 <form onSubmit={(e) => handleSignUp(e)}>
-                    <input type="radio" id="Employer" name="role" value="Employer" onChange={(e) => setRole(e.target.value)} />
                     <label htmlFor="Employer">Employer</label>
-
-                    <input type="radio" id="Applicant" name="role" value="Applicant" onChange={(e) => setRole(e.target.value)} />
+                    <input type="radio" id="Employer" name="role" value="Employer" onChange={(e) => setRole(e.target.value)} />
+                    
                     <label htmlFor="Applicant">Applicant</label><br />
+                    <input type="radio" id="Applicant" name="role" value="Applicant" onChange={(e) => setRole(e.target.value)} />                    
 
-                    <label htmlFor="password">Password:</label>
-                    <input name="password" type="password" onChange={(e) => setPassword(e.target.value)} required /><br />
-
+                    
                     <label htmlFor="email">Email:</label>
                     <input name="email" type="email" onChange={(e) => setEmail(e.target.value)} required /><br />
 
                     <label htmlFor="name">Username:</label>
                     <input name="name" type="username" onChange={(e) => setName(e.target.value)} required /><br />
+
+                    <label htmlFor="password">Password:</label>
+                    <input name="password" type="password" onChange={(e) => setPassword(e.target.value)} required /><br />
 
                     <button type="submit">Sign Up</button>
                 </form>

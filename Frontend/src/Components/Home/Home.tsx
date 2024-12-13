@@ -8,6 +8,7 @@ import JobOffer from "../JobOffer/JobOffer";
 import { UserContext } from "../../Services/User";
 import Navbar from "../Navbar";
 import AdminScreen from "../Admin/AdminScreen";
+import FilterData from "../FilterData/FilterData"
 
 type View = "home" | "login" | "signup" | "admin"
 
@@ -28,8 +29,18 @@ const Home = () => {
             <Navbar view={view} setView={setView} />
             {user.role === "admin" && isLoggedIn ? <AdminScreen/> :
             <div className="content">
-                {isLoggedIn ? view === "home" && <h1>Welcome {user.name}!</h1> : view === "home" && <h1>HomePage</h1>}
-                {view !== "signup" && view !== "login" && <JobOffer />}
+                {isLoggedIn ? view === "home" && <h1>Welcome {user.name}!</h1> : view === "home" && <h1 className="homeh1">HomePage</h1>}
+                {view !== "signup" && view !== "login" &&
+                <div className="container-flex">
+                    <div className="component-one">
+                        <JobOffer />
+                    </div>
+                    <div className="component-two">
+                        <FilterData/>
+                    </div>
+                </div>
+                 
+                }
                 {view === "signup" && <SignUp setView={setView} />}
                 {view === "login" && <Login setView={setView} />}
             </div>}
