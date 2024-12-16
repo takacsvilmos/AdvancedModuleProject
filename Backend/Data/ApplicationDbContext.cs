@@ -12,6 +12,14 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Applicant> Applicants { get; set; }
     public DbSet<Employer> Employers { get; set; }
-
-    // Add DbSet properties here, e.g., for a User model:
+    public DbSet<JobOffer> JobOffers { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Configure the one-to-many relationship
+        modelBuilder.Entity<Employer>()
+            .HasMany(e => e.job_offers)
+            .WithOne(j => j.Employer)
+            .HasForeignKey(j => j.EmployerId)
+            .OnDelete(DeleteBehavior.Cascade); // Cascading delete, if desired
+    }
 }

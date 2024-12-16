@@ -1,5 +1,5 @@
 import JobCard from "../JobCard/JobCard"
-import "./JobOffer.css"
+import "./JobContainer.css"
 import { useNavigate } from "react-router-dom";
 import { useContext} from "react";
 import { JobContext } from "../../Services/JobContext"

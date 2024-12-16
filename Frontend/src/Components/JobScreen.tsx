@@ -3,7 +3,7 @@ import { useContext } from "react";
 import ProfilePanel from "./ProfilePanel/ProfilePanel";
 import Company from "./Company/Company";
 import { CompanyType } from "../Services/CompanyTypes";
-import JobOffer, { jobOffers } from "./JobOffer/JobOffer";
+import JobOffer, { jobOffers } from "./JobContainer/JobContainer";
 import "./JobScreen.css";
 
 import "./ProfilePanel/ProfilePanel.css"

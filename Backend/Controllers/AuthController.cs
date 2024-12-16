@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
     public AuthController(IAuthService authenticationService, ApplicationDbContext context)
     {
         _authenticationService = authenticationService;
-        _context = context ?? throw new ArgumentNullException(nameof(context));;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
 
     }
 
@@ -58,11 +58,11 @@ public class AuthController : ControllerBase
         return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
     }
 
-    [HttpPost("Login")]
+    /*[HttpPost("Login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
         return Ok(HardcodedUser);
-    }
+    }*/
 
     [HttpPut("UpdateWorkExperience")]
     public IActionResult UpdateWorkExperience([FromBody] WorkExperience request)
@@ -78,7 +78,7 @@ public class AuthController : ControllerBase
         }
     }
     
-    /*[HttpPost("Login")]
+    [HttpPost("Login")]
     public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
@@ -94,8 +94,8 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
-    }*/
+        return Ok(new AuthResponse(result.Email, result.UserName, result.Token, result.Role));
+    }
 
     private void AddErrors(AuthResult result)
     {

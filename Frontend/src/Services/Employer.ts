@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import JobOffer from "../Components/JobOffer/JobOffer";
+import JobOffer from "../Components/JobContainer/JobContainer";
 
 export type Listing = {
     id: number;

@@ -4,7 +4,7 @@ import SignUp from "../Login/SignUp";
 import Login from "../Login/Login";
 import { AuthContext } from "../../Services/Auth";
 import ProfilePanel from "../ProfilePanel/ProfilePanel";
-import JobOffer from "../JobOffer/JobOffer";
+import JobOffer from "../JobContainer/JobContainer";
 import { UserContext } from "../../Services/User";
 import Navbar from "../Navbar";
 import AdminScreen from "../Admin/AdminScreen";

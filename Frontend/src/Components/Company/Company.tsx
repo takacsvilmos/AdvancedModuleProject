@@ -1,6 +1,6 @@
 import { CompanyType } from "../../Services/CompanyTypes"
 import { useState } from "react"
-import JobOffer from "../JobOffer/JobOffer"
+import JobOffer from "../JobContainer/JobContainer"
 import JobCard from "../JobCard/JobCard"
 import "../JobScreen.css"
 
