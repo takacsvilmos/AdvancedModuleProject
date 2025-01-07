@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241216105944_JobOfferDbSet")]
-    partial class JobOfferDbSet
+    [Migration("20241216173441_RefactoredEmployerAndJO")]
+    partial class RefactoredEmployerAndJO
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,15 +77,11 @@ namespace Backend.Migrations.ApplicationDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("company_name")
+                    b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -93,11 +89,15 @@ namespace Backend.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.PrimitiveCollection<string>("field")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phone")
+                    b.PrimitiveCollection<string>("Field")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -124,10 +124,6 @@ namespace Backend.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmployerEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("EmployerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -136,6 +132,10 @@ namespace Backend.Migrations.ApplicationDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -202,7 +202,7 @@ namespace Backend.Migrations.ApplicationDb
             modelBuilder.Entity("Backend.Model.JobOffer", b =>
                 {
                     b.HasOne("Backend.Model.Employer", "Employer")
-                        .WithMany("job_offers")
+                        .WithMany("JobOffers")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -226,7 +226,7 @@ namespace Backend.Migrations.ApplicationDb
 
             modelBuilder.Entity("Backend.Model.Employer", b =>
                 {
-                    b.Navigation("job_offers");
+                    b.Navigation("JobOffers");
                 });
 #pragma warning restore 612, 618
         }

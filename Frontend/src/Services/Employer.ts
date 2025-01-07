@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import JobOffer from "../Components/JobContainer/JobContainer";
+import JobContainer from "../Components/JobContainer/JobContainer";
 
 export type Listing = {
     id: number;
@@ -16,7 +16,7 @@ export type Listing = {
     image: string | null;
 }
 
-export type Employer = {
+export type EmployerData = {
   id: number;
   company_name: string;
   field: string[];
@@ -29,8 +29,8 @@ export type Employer = {
 };
 
 export type EmployerContextType = {
-  employer: Employer;
-  setEmployer: React.Dispatch<React.SetStateAction<Employer>>;
+  employer: EmployerData;
+  setEmployer: React.Dispatch<React.SetStateAction<EmployerData>>;
 };
 
-export const UserContext = createContext<EmployerContextType | null>(null);
+export const EmployerContext = createContext<EmployerContextType | null>(null);

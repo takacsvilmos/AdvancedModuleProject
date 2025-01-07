@@ -2,9 +2,11 @@ import "./Login&SignUp.css";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../Services/Auth";
 import { UserContext } from "../../Services/User";
+import { loginUserApi } from "../../Api";
+import { User } from "../../Services/User";
 
 type LoginProps = {
-    setView: (view: "home" | "login" | "signup" | "admin") => void;
+    setView: (view: "home" | "login" | "signup" | "admin" | "employer") => void;
 }
 
 const Login = ({ setView }: LoginProps) => {
@@ -12,58 +14,33 @@ const Login = ({ setView }: LoginProps) => {
     const [password, setPassword] = useState("")
     const { logIn } = useContext(AuthContext)
     const userContext = useContext(UserContext)
+    
     if (!userContext) {
         throw new Error("no user!")
     }
-    const { setUser } = userContext
-
-
+    const { setUser } = userContext //!!!!
 
     const handleSubmit = async (e: any) => {
-        e.preventDefault()
-
-        const loginUser = { email, password }
+        e.preventDefault();
+    
+        const loginUser = { email, password };
+    
         try {
-            const res = await fetch(`/api/Auth/Login`, {
-                method: "Post",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(loginUser)
-            })
-            if (res.ok) {
-                const data = await res.json()
-                console.log(data)
-                if (data.userName === "admin") {
-                    logIn()
-                    setUser((prevUser) => ({
-                        ...prevUser, // Spread the existing user properties
-                        role: "admin", // Update the role property
-                    }));
-                    setView("admin")
-                    // Save the token after receiving it from the backend
-                    sessionStorage.setItem("authToken", data.token);
-
-
-                } else {
-                    logIn()
-                    setView("home")
-                }
-
+            const user: User = await loginUserApi(loginUser);
+            setUser(user)
+            logIn()
+    
+            if (user.role === "admin") {
+                setView("admin")
+            } else {
+                setView("home");
             }
+    
         } catch (error) {
-            console.log("Error:", error)
+            console.error("Error during login:", error)
+            alert("Invalid email or password")
         }
-
     }
-    /* const handleSubmit = () => {
-     logIn()
-     if(user.role === "admin"){
-         setView("admin")
-     }else{
-         setView("home") 
-     }
-    } */
 
     return (
         <div className="container">

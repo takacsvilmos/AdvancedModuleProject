@@ -17,7 +17,7 @@ public class ApplicationDbContext : DbContext
     {
         // Configure the one-to-many relationship
         modelBuilder.Entity<Employer>()
-            .HasMany(e => e.job_offers)
+            .HasMany(e => e.JobOffers)
             .WithOne(j => j.Employer)
             .HasForeignKey(j => j.EmployerId)
             .OnDelete(DeleteBehavior.Cascade); // Cascading delete, if desired

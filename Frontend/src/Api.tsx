@@ -1,3 +1,5 @@
+import { ApplicantData } from "./Services/User";
+
 export const loginUser = async (loginData: { email: string; password: string })  => {
     try {
         const response = await fetch("http://localhost:5177/Service/login", {
@@ -36,6 +38,35 @@ export const SignUpUser = async (user: {Email: string; Password: string; Role: s
 
         const data = await response.json();
         return data;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+
+    
+}
+
+export const loginUserApi = async (loginData: { email: string; password: string })  => {
+    try {
+        const response = await fetch("/api/Auth/Login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(loginData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Invalid email or password")
+        }
+
+        const data = await response.json();
+        localStorage.setItem("authToken", data.token);
+        return {
+            username: data.username,
+            email: data.email,
+            role: data.role,
+        }
     } catch (error) {
         console.error("Error:", error);
         throw error;

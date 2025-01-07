@@ -10,6 +10,7 @@ import { JobOffer } from './Services/JobContext';
 import { UserContext, User } from './Services/User';
 import UserManager from './Components/UserManager';
 import UserCv from './Components/CV/UserCv';
+import JobUserCreationPage from './Components/JobOfferCreationPage/JobOfferCreationPage';
 
 
 
@@ -30,36 +31,18 @@ const router = createBrowserRouter([
     path: "usercv/:id",
     element: <UserCv />
   },
+  {
+    path: "/joboffercreation",
+    element: <JobUserCreationPage/>
+  }
 
 ]);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [currentJob, setCurrentJob] = useState<JobOffer>(null)
-  const [user, setUser] = useState<User>({
-    id: 1,
-    name: "John Doe",
-    age: 30,
-    role: "",
-    language: ["English", "Spanish", "Deutsch"],
-    profession: ["Plumber"],
-    address: "123 Main St, London",
-    phone: "123-456-7890",
-    email: "john.doe@example.com",
-    description: "I work as a plumber for 60 years now, and i'm so exited to countinue this rest of my life",
-    workexperience: [
-      {
-        id: 1,
-        company: "PlumberCorp",
-        role: "Toilet output designer",
-        startingdate: "Jan 1995",
-        enddate: "Present",
-        description: "Making beautiful outputs"
-      }
-    ],
-    image: "",
-  })
+  const [currentJob, setCurrentJob] = useState<JobOffer>(null);
+  const [user, setUser] = useState<User | null>(null)
 
   return (
     <AuthContext.Provider value={{

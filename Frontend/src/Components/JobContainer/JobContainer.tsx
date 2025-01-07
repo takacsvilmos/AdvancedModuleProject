@@ -20,7 +20,7 @@ export const jobOffers: JobOffer[] = [
 
 
 
-const JobOffer = () => {
+const JobContainer = () => {
     const navigate = useNavigate()
     const jobContext = useContext(JobContext);
     const { isLoggedIn } = useContext(AuthContext)
@@ -36,7 +36,7 @@ const JobOffer = () => {
             setCurrentJob(job)
             navigate(`/joboffer/${job.id}`)
         }else{
-            alert('Login first!!!!!!!!!!!!!!')
+            alert('Login first!')
         }
         
     }
@@ -44,7 +44,7 @@ const JobOffer = () => {
     return (       
         <div className="jobContainer">
             {jobOffers.map((job, index) => (
-                <button onClick={() => handleClick(job)}><JobCard key={index} offer={job} /></button>
+                <button key={index} onClick={() => handleClick(job)}><JobCard key={index} offer={job} /></button>
 
             ))}
             
@@ -52,4 +52,4 @@ const JobOffer = () => {
         
     );
 };
-export default JobOffer
+export default JobContainer

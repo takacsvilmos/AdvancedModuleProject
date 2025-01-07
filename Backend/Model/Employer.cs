@@ -8,12 +8,12 @@ namespace Backend.Model
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string company_name { get; set; } = "";
-        public List<string> field { get; init; } = new List<string>();
-        public string address { get; set; } = "";
-        public string phone { get; set; } = "";
-        public string description { get; set; } = "";
-        public ICollection<JobOffer> job_offers { get; init; } = new List<JobOffer>();
+        public string CompanyName { get; set; } = "";
+        public List<string> Field { get; init; } = new List<string>();
+        public string Address { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public string Description { get; set; } = "";
+        public ICollection<JobOffer> JobOffers { get; init; } = new List<JobOffer>();
 
         public Employer(string email)
         {

@@ -5,8 +5,8 @@ import { useContext } from "react";
 import { UserContext } from "../Services/User";
 
 type NavbarProps = {
-    view?: "home" | "login" | "signup" | "admin"
-    setView?: (view: "home" | "login" | "signup") => void;
+    view?: "home" | "login" | "signup" | "admin" | "employer"
+    setView?: (view: "home" | "login" | "signup" | "employer") => void;
 }
 
 const Navbar = ({ view, setView }: NavbarProps) => {
@@ -48,6 +48,7 @@ const Navbar = ({ view, setView }: NavbarProps) => {
 
     const handleLoginClick = () => {
         if (setView) setView("login")
+            console.log("should set view to login but button is still");
     }
 
     const handleSignUpClick = () => {

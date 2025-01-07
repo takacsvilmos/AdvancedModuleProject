@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Backend.Data;
+using Backend.DTOs;
 using Backend.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Backend.Controllers;
 [ApiController]
@@ -18,38 +20,79 @@ public class EmployerController : ControllerBase
         _context = context;
     }
 
-    [HttpPost("/CreateOffer"), Authorize]
-    public async Task<IActionResult> CreateOffer()
+    [HttpPost("CreateOffer"), Authorize]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<ActionResult<ResponseDto>> CreateOffer([FromBody] JobOfferDto jobOfferDto)
     {
         string emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+        
+        Console.WriteLine($"Email from token: {emailFromToken}");
 
-        // Find the authorized employer
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+
         var authorizedEmployer = await _context.Employers
-            .Include(e => e.job_offers) // Ensure job_offers are loaded
+            .Include(e => e.JobOffers)
             .FirstOrDefaultAsync(employer => employer.Email == emailFromToken);
 
-        // Null check
         if (authorizedEmployer == null)
         {
             return NotFound("Employer not found or account does not exist.");
         }
 
-        // Log for debugging
-        Console.WriteLine($"authorizedEmployerId: {authorizedEmployer.Id}");
-        Console.WriteLine($"authorizedEmployerEmail: {authorizedEmployer.Email}");
-        Console.WriteLine($"authorizedEmployerCompany: {authorizedEmployer.company_name}");
 
-        // Create a new JobOffer
-        var jobOffer = new JobOffer(authorizedEmployer.Id, authorizedEmployer.Email);
+        var jobOffer = new JobOffer(authorizedEmployer.Id)
+        {
+            CompanyName = authorizedEmployer.CompanyName, 
+            Email = authorizedEmployer.Email,
+            name = jobOfferDto.name,
+            location = jobOfferDto.location,
+            rating = jobOfferDto.rating,
+            recommendedFor = jobOfferDto.recommendedFor,
+            date = jobOfferDto.date,
+            description = jobOfferDto.description
+        };
 
-        // Add the job offer to the database explicitly
         _context.JobOffers.Add(jobOffer);
 
-        // Save changes
         await _context.SaveChangesAsync();
 
-        return Ok($"{jobOffer.Id} is created.");
+        return CreatedAtAction(nameof(CreateOffer), new {Message = "job offer created"});
 
+    }
+
+    [HttpGet("{email}"), Authorize]
+    public async Task<ActionResult<EmployerDto>> GetEmployerData()
+    {
+        string emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+        Console.WriteLine($"Email from token: {emailFromToken}");
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+
+        var user = _context.Employers.FirstOrDefault(employer => employer.Email == emailFromToken);
+        if (user == null)
+        {
+            return NotFound("There is no user with those specifications");
+        }
+
+        var EmployerDto = new EmployerDto
+        {
+            Address = user.Address,
+            CompanyName = user.CompanyName,
+            Email = user.Email,
+            Description = user.Description,
+            Field = user.Field,
+            Id = user.Id,
+            Phone = user.Phone
+        };
+
+        return Ok(EmployerDto);
     }
     
 }
