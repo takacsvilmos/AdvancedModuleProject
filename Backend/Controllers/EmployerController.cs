@@ -94,5 +94,30 @@ public class EmployerController : ControllerBase
 
         return Ok(EmployerDto);
     }
-    
+
+    [HttpPatch("{email}"), Authorize]
+    public async Task<ActionResult> EditEmployerData([FromBody] EmployerDto employerData)
+    {
+        string emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+
+        var user = _context.Employers.FirstOrDefault(employer => employer.Email == emailFromToken);
+        if (user == null)
+        {
+            return NotFound("There is no user with those specifications");
+        }
+
+        user.CompanyName = employerData.CompanyName;
+        user.Address = employerData.Address;
+        user.Description = employerData.Description;
+        user.Phone = employerData.Phone;
+
+        await _context.SaveChangesAsync();
+
+        return Ok("User data edited successfully");
+    } 
+
 }

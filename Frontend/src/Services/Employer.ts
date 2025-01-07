@@ -1,5 +1,4 @@
-import { createContext } from "react";
-import JobContainer from "../Components/JobContainer/JobContainer";
+import { createContext,useState, ReactNode } from "react";
 
 export type Listing = {
     id: number;
@@ -18,7 +17,7 @@ export type Listing = {
 
 export type EmployerData = {
   id: number;
-  company_name: string;
+  companyName: string;
   field: string[];
   address: string | null;
   phone: number;
@@ -29,8 +28,8 @@ export type EmployerData = {
 };
 
 export type EmployerContextType = {
-  employer: EmployerData;
-  setEmployer: React.Dispatch<React.SetStateAction<EmployerData>>;
+  employer: EmployerData | null;
+  setEmployer: React.Dispatch<React.SetStateAction<EmployerData | null>>;
 };
 
 export const EmployerContext = createContext<EmployerContextType | null>(null);

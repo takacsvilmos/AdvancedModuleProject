@@ -3,6 +3,8 @@ import { AuthContext } from "../Services/Auth";
 import { ProfilePanelContext } from "../Services/ProfilePanalAuth";
 import { useContext } from "react";
 import { UserContext } from "../Services/User";
+import { fetchEmployerData } from "../Api";
+import { EmployerContext } from "../Services/Employer";
 
 type NavbarProps = {
     view?: "home" | "login" | "signup" | "admin" | "employer"
@@ -13,9 +15,10 @@ const Navbar = ({ view, setView }: NavbarProps) => {
     const { isLoggedIn, logOut } = useContext(AuthContext)
     const { isOpen, onClose, doOpen } = useContext(ProfilePanelContext)
     const navigate = useNavigate();
-    
+    const employerContext = useContext(EmployerContext);
+
     const userContext = useContext(UserContext)
-    if(!userContext){
+    if (!userContext) {
         throw new Error("no user!")
     }
     const { setUser } = userContext
@@ -26,15 +29,21 @@ const Navbar = ({ view, setView }: NavbarProps) => {
         } else {
             doOpen()
         }
+        const fetchData = async () => {
+            const data = await fetchEmployerData(userContext?.user?.email);
+            employerContext?.setEmployer(data);
+        };
+        fetchData();
+        console.log("employer:", employerContext?.employer?.companyName);
     }
 
     const handleLogout = () => {
-        setUser((prevUser) => ({
+        userContext.setUser((prevUser) => ({
             ...prevUser, // Spread the existing user properties
             role: "", // Update the role property
-          }));
+        }));
         logOut()
-        if(setView) setView("home")
+        if (setView) setView("home")
         navigate("/")
     }
 
@@ -42,19 +51,19 @@ const Navbar = ({ view, setView }: NavbarProps) => {
         if (setView) {
             setView("home");
         } else {
-            navigate("/"); 
+            navigate("/");
         }
     }
 
     const handleLoginClick = () => {
         if (setView) setView("login")
-            console.log("should set view to login but button is still");
+        console.log("should set view to login but button is still");
     }
 
     const handleSignUpClick = () => {
         if (setView) setView("signup")
-    }  
-    
+    }
+
 
     return (
         <div className="navbar">
@@ -62,12 +71,12 @@ const Navbar = ({ view, setView }: NavbarProps) => {
             <div>
                 {isLoggedIn ? (
                     <div>
-                        {view === "admin"?
-                        <button onClick={handleLogout}>Logout</button>:
-                        <>
-                        <button onClick={handleProfileClick}>Profile</button>
-                        <button onClick={handleLogout}>Logout</button>
-                        <button onClick={handleHomeClick}>Home</button></>}
+                        {view === "admin" ?
+                            <button onClick={handleLogout}>Logout</button> :
+                            <>
+                                <button onClick={handleProfileClick}>Profile</button>
+                                <button onClick={handleLogout}>Logout</button>
+                                <button onClick={handleHomeClick}>Home</button></>}
                     </div>
                 ) : (
                     <div>

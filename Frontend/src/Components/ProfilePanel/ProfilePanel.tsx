@@ -1,16 +1,19 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { UserContext } from "../../Services/User";
 import { ProfilePanelContext } from "../../Services/ProfilePanalAuth"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Services/Auth";
+import { EmployerContext } from "../../Services/Employer";
 
 import "./ProfilePanel.css"
+import { fetchEmployerData } from "../../Api";
 
 
 const ProfilePanel = () =>{
 const {isOpen, onClose} = useContext(ProfilePanelContext)
 const {isLoggedIn} = useContext(AuthContext)
 const userContext = useContext(UserContext)
+const employerContext = useContext(EmployerContext)
 const navigate = useNavigate()
 
     if(!isLoggedIn){
@@ -38,10 +41,13 @@ const navigate = useNavigate()
     return(
         <>
         <div className={`profile-panel ${isOpen ? "open" : ""}`} id="myprofile_panel">
-                    <h1>{user?.username}'s panel</h1>                    
-                    <p>Description...</p>
+                    <h1>{employerContext?.employer?.companyName || "Company"}'s panel</h1>                    
+                    <p>{employerContext?.employer?.description}</p>
                     <div>
-                        {user?.role === "Employer" ? <button onClick={handleCreateJobOffer}>Create job offer</button>: 
+                        {user?.role === "Employer" ? 
+                        <div><button onClick={handleCreateJobOffer}>Create job offer</button>
+                        <button onClick={handleCreateJobOffer}>Edit job offer</button>
+                        </div>: 
                         <button onClick={handleCv}>Add CV</button>
                         }
                         <button onClick={handleManager}>Profile manager</button>
