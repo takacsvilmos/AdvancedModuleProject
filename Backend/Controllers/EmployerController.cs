@@ -65,6 +65,36 @@ public class EmployerController : ControllerBase
 
     }
 
+    [HttpGet("{email}/{jobOfferId}"), Authorize]
+    public async Task<ActionResult> GetJobOffer(string jobOfferId)
+    {
+        var emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+
+        var searchedJobOffer = _context.JobOffers.FirstOrDefault(jobOffer => jobOffer.Id.ToString() == jobOfferId);
+
+        return Ok(searchedJobOffer);
+    }
+
+    [HttpGet("{email}/jobOffers"), Authorize]
+    public async Task<ActionResult> GetJobOffer()
+    {
+        var emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+
+        var searchedJobOffers = _context.JobOffers.Where(jobOffer => jobOffer.Email == emailFromToken);
+
+        return Ok(searchedJobOffers);
+    }
+
     [HttpGet("{email}"), Authorize]
     public async Task<ActionResult<EmployerDto>> GetEmployerData()
     {
@@ -119,5 +149,7 @@ public class EmployerController : ControllerBase
 
         return Ok("User data edited successfully");
     } 
+
+    
 
 }

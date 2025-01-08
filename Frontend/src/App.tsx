@@ -12,6 +12,7 @@ import UserManager from './Components/UserManager';
 import UserCv from './Components/CV/UserCv';
 import JobUserCreationPage from './Components/JobOfferCreationPage/JobOfferCreationPage';
 import { EmployerContext, EmployerData } from './Services/Employer';
+import { jobOffers } from './Components/JobContainer/JobContainer';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [currentJob, setCurrentJob] = useState<JobOffer>(null);
+  const [currentJob, setCurrentJob] = useState<JobOffer | null>(null);
   const [user, setUser] = useState<User | null>(null)
   const [employer, setEmployer] = useState<EmployerData | null>(null)
 
