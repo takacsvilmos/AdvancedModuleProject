@@ -12,7 +12,6 @@ import UserManager from './Components/UserManager';
 import UserCv from './Components/CV/UserCv';
 import JobUserCreationPage from './Components/JobOfferCreationPage/JobOfferCreationPage';
 import { EmployerContext, EmployerData } from './Services/Employer';
-import { fetchEmployerData } from './Api';
 
 const router = createBrowserRouter([
   {

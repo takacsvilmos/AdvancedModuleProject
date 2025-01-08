@@ -92,7 +92,7 @@ const JobUserCreationPage = () => {
                             onChange={(e)=> handleChange("rating", e.target.value)}
                             min="0"
                             max="5"
-                            step="0.1"
+                            step="1"
                         />
 
                         <label htmlFor="recommendedFor">Recommended For: </label>

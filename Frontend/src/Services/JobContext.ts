@@ -14,10 +14,10 @@ export type JobOffer = {
 
 type JobOfferContextType = {
     currentJob: JobOffer | null,
-    setCurrentJob: React.Dispatch<SetStateAction<JobOffer>>
+    setCurrentJob: React.Dispatch<SetStateAction<JobOffer | null>>
 };
 
-export const JobContext = createContext<JobOfferContextType | undefined>(undefined);
+export const JobContext = createContext<JobOfferContextType | null>(null);
 
 
 

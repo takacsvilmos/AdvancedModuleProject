@@ -63,9 +63,10 @@ export const loginUserApi = async (loginData: { email: string; password: string 
         const data = await response.json();
         localStorage.setItem("authToken", data.token);
         return {
-            username: data.username,
-            email: data.email,
+            username: data.userName,
             role: data.role,
+            email: data.email,
+            
         }
     } catch (error) {
         console.error("Error:", error);

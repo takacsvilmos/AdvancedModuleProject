@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Services/Auth";
 import { ProfilePanelContext } from "../Services/ProfilePanalAuth";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../Services/User";
 import { fetchEmployerData } from "../Api";
 import { EmployerContext } from "../Services/Employer";
@@ -16,12 +16,15 @@ const Navbar = ({ view, setView }: NavbarProps) => {
     const { isOpen, onClose, doOpen } = useContext(ProfilePanelContext)
     const navigate = useNavigate();
     const employerContext = useContext(EmployerContext);
+    const userContext = useContext(UserContext);
 
-    const userContext = useContext(UserContext)
     if (!userContext) {
         throw new Error("no user!")
     }
-    const { setUser } = userContext
+
+    useEffect(()=>{
+        console.log(userContext?.user);
+    }, [])
 
     const handleProfileClick = () => {
         if (isOpen) {
