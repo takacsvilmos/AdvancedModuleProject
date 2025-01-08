@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { EmployerData } from "./Employer";
 
 export type WorkExperience = {
     id: number;
@@ -10,24 +11,27 @@ export type WorkExperience = {
 }
 
 
-export type User = {
-  id: number;
-  name: string;
+export type ApplicantData = {
   age: number;
-  role: string;
   language: string[];
   profession: string[];
   address: string;
   phone: string;
   email: string;
   description: string;
-  workexperience: WorkExperience[]
+  workExperience: WorkExperience[];
   image: string | null; 
+}
+
+export type User = {
+  username: string;
+  role: string;
+  email: string;
 };
 
 export type UserContextType = {
-  user: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 export const UserContext = createContext<UserContextType | null>(null);

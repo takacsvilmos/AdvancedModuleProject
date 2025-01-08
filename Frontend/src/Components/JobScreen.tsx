@@ -1,9 +1,9 @@
 import { JobContext } from "../Services/JobContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ProfilePanel from "./ProfilePanel/ProfilePanel";
 import Company from "./Company/Company";
 import { CompanyType } from "../Services/CompanyTypes";
-import JobOffer, { jobOffers } from "./JobOffer/JobOffer";
+import JobContainer, { jobOffers } from "./JobContainer/JobContainer";
 import "./JobScreen.css";
 
 import "./ProfilePanel/ProfilePanel.css"
@@ -13,7 +13,7 @@ import Navbar from "./Navbar";
 
 const JobScreen = () => {
     const jobContext = useContext(JobContext);
-
+    
 
     const c_description: string = "We specialize in  off-shore oil rigs on the seas of England "
     const c_description2: string = "We specialize in wood related work "
@@ -57,10 +57,13 @@ const JobScreen = () => {
         return "No jobs"
     }
 
+    
+
     return (
         <>
             <Navbar />
             <div className="jobScreenContainer">
+                
                 <div className="jobScreenCompany">
                     {selectedCompany ? (
                         <Company company={selectedCompany} jobs={selectedJobs} />

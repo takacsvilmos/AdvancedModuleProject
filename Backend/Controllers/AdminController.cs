@@ -1,6 +1,5 @@
 using System.Net;
 using System.Security.Claims;
-using Backend.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +9,6 @@ namespace Backend.Controllers;
 
 public class AdminController : ControllerBase
 {
-    private readonly IAdminRepo _adminRepository;
-
-    public AdminController(IAdminRepo adminRepository)
-    {
-        _adminRepository = adminRepository;
-    }
 
     [HttpGet("test-auth"), Authorize(Roles = "Admin")]
     public IActionResult TestAuth()
@@ -32,8 +25,7 @@ public class AdminController : ControllerBase
     [HttpGet("admin/users"), Authorize(Roles="Admin")]
     public async Task <IActionResult> GetAllUsers()
     {
-        var result = await _adminRepository.GetAllUsers();
-        return Ok(result);
+        return BadRequest();
     }
     
     [HttpPost("admin/users")]

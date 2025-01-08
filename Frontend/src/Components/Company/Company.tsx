@@ -1,16 +1,16 @@
 import { CompanyType } from "../../Services/CompanyTypes"
 import { useState } from "react"
-import JobOffer from "../JobOffer/JobOffer"
+import JobContainer from "../JobContainer/JobContainer"
 import JobCard from "../JobCard/JobCard"
 import "../JobScreen.css"
 
 
 export type CompanyProps = {
-    company: CompanyType 
-    jobs: JobOffer[] 
+    company: CompanyType
+    jobs: JobOffer[]
 }
 
-const Company = ({ company, jobs}: CompanyProps) => {
+const Company = ({ company, jobs }: CompanyProps) => {
 
     const [showOffers, setShowOffers] = useState(false);
 
@@ -45,7 +45,7 @@ const Company = ({ company, jobs}: CompanyProps) => {
                         <button onClick={handleToggle}>
                             {showOffers ? "Hide offers" : "Show offers"}
                         </button>
-                        {showOffers && jobs.map((job) => (<div className="jobSreenCard"><JobCard offer={job}/><button>Apply with CV</button></div>))}
+                        {showOffers && jobs.map((job) => (<div className="jobSreenCard"><JobCard offer={job} /><button>Apply with CV</button></div>))}
                     </>
                 )}
             </div>

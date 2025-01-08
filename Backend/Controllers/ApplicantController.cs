@@ -1,17 +1,21 @@
-using Backend.Repositories;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.Controllers;
 [ApiController]
-[Route("[controller]")]
+[Route("/api/[controller]")]
 public class ApplicantController : ControllerBase
 {
-    private readonly IApplicantRepo _applicantRepo;
-
-    public ApplicantController(IApplicantRepo applicantRepo)
+    [HttpGet("Profile"), Authorize]
+    public IActionResult Profile()
     {
-        _applicantRepo = applicantRepo;
+        var email = HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+
+        return Ok(email);
     }
+
 
     [HttpPut("update")]
     public IActionResult UpdatePersonalData()

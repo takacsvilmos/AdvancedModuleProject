@@ -1,4 +1,4 @@
-import JobOffer from "../Components/JobOffer/JobOffer";
+import JobContainer from "../Components/JobContainer/JobContainer";
 
 
 

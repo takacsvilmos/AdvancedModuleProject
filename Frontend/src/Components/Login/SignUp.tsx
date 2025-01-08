@@ -22,7 +22,7 @@ const SignUp = ({ setView }: LoginProps) => {
 
 
         try {
-            const response = await fetch(`https://localhost:7119/Auth/Register`, {
+            const response = await fetch(`api/Auth/Register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
