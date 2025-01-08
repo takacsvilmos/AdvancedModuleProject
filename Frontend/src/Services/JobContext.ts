@@ -9,8 +9,8 @@ export type JobOffer = {
     recommendedFor: string, 
     date: string,
     description: string,
-    company_id?: string
-} | null;
+    company_id?: string,
+} 
 
 type JobOfferContextType = {
     currentJob: JobOffer | null,

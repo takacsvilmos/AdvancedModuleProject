@@ -41,13 +41,18 @@ const Navbar = ({ view, setView }: NavbarProps) => {
     }
 
     const handleLogout = () => {
-        userContext.setUser((prevUser) => ({
-            ...prevUser, // Spread the existing user properties
-            role: "", // Update the role property
-        }));
-        logOut()
-        if (setView) setView("home")
-        navigate("/")
+        userContext.setUser((prevUser) => {
+        if (!prevUser) return null; // Handle null case explicitly
+
+        return {
+          ...prevUser,
+          role: "", // Update the role property
+        };
+      });
+    
+      logOut();
+      if (setView) setView("home");
+      navigate("/");
     }
 
     const handleHomeClick = () => {
