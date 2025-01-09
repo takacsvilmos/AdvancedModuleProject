@@ -30,7 +30,7 @@ const navigate = useNavigate()
         navigate(`/usercv/${user?.username}`)
     }
     const handleManager = () =>{
-        navigate(`/usermanager/${user?.username}`)
+        navigate(`/employermanager`)
     }
     const handleCreateJobOffer = ()=>{
         navigate("/joboffercreation");

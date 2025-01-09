@@ -1,31 +1,27 @@
-import { createContext,useState, ReactNode } from "react";
+import { createContext } from "react";
 
-export type Listing = {
-    id: number;
-    company_id: number;
-    company_name: string;
-    field: string[];
-    location: string;
-    req_work_exp: number;
-    salary: number;
-    working_hours: number;
-    phone: number;
-    email: string;
-    description: string;
-    image: string | null;
-}
+
+export type JobOffer = {
+  id: string,
+  name: string, 
+  location: string, 
+  rating: number, 
+  recommendedFor: string, 
+  date: string,
+  description: string,
+  company_id: string
+} | null;
+
 
 export type EmployerData = {
-  id: number;
+  address: string
   companyName: string;
-  field: string[];
-  address: string | null;
-  phone: number;
+  description: string 
   email: string;
-  description: string | null;
-  job_offers: Listing[];
-  image: string | null; 
-};
+  field: string[];
+  id: number;
+  phone: number;
+} | null
 
 export type EmployerContextType = {
   employer: EmployerData | null;

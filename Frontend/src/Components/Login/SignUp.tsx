@@ -1,5 +1,8 @@
+import Login from "./Login";
 import "./Login&SignUp.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../Services/Auth";
+
 
 type LoginProps = {
     setView: (view: "home" | "login" | "signup") => void
@@ -11,6 +14,7 @@ const SignUp = ({ setView }: LoginProps) => {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
+    const { logIn } = useContext(AuthContext);
 
 
     const handleSignUp = async (e: any) => {
@@ -33,6 +37,7 @@ const SignUp = ({ setView }: LoginProps) => {
                 const data = await response.json()
                 console.log(data)
                 alert("Registration succefull")
+                logIn();
                 setView("home")
             }
 

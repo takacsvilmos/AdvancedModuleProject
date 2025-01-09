@@ -1,4 +1,6 @@
-import { ApplicantData } from "./Services/User";
+import { EmployerData } from "./Services/Employer";
+
+const jwtToken = localStorage.getItem("authToken");
 
 export const loginUser = async (loginData: { email: string; password: string })  => {
     try {
@@ -76,7 +78,6 @@ export const loginUserApi = async (loginData: { email: string; password: string 
 
 export const fetchEmployerData = async (email: string | undefined)=>{
     try{
-        const jwtToken = localStorage.getItem("authToken");
         if (!jwtToken) {
             console.error("No token found. Please log in.");
             //route back to login
@@ -100,5 +101,68 @@ export const fetchEmployerData = async (email: string | undefined)=>{
     }catch(error){
         console.error("Error:", error);
         return null;
+    }
+}
+
+export const FetchJobOffers = async () => {
+    try {
+        const response = await fetch("api/Applicant/getJobOffers", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        const data = await response.json();
+        if(data === null){
+            console.log("no data")
+        }
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+export const FetchEmployerData = async() => {
+    if (!jwtToken) {
+        console.error("No token found. Please log in.");
+        //route back to login
+        return;
+    }
+    try {
+        const response = await fetch(`/api/Employer/EmployerData`,{
+            method: "GET",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwtToken}`
+            },
+        })
+        if(!response.ok){
+            console.error(`Error: ${response.status} ${response.statusText}`);
+            return null;
+        }
+        const data = await response.json()
+        return data;
+        
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+export const PatchEmployerData=async(employerData: EmployerData)=>{
+    try {
+        const response = await fetch("api/Employer/EditEmployerData",{
+            method: "PATCH",
+            headers: {"Content-Type": "application/json",
+            "Authorization": `Bearer ${jwtToken}`},
+            body: JSON.stringify(employerData)
+        })
+        if(!response.ok){
+            throw new Error("noob")
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        throw new Error("Some error occured!")
     }
 }

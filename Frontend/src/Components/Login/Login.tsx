@@ -30,7 +30,7 @@ const Login = ({ setView }: LoginProps) => {
             setUser(user)
             logIn()
     
-            if (user.role === "admin") {
+            if (user.role === "Admin") {
                 setView("admin")
             } else {
                 setView("home");

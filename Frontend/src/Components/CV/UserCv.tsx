@@ -7,7 +7,7 @@ import Introductionedit from "./Introductionedit";
 import Navbar from "../Navbar";
 
 const UserCv = () => {
-const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext)
     if (!userContext) {
         throw new Error("No User")
     }
@@ -19,25 +19,25 @@ const userContext = useContext(UserContext)
             <Navbar />
             <div className="CV-container">
                 <div className="leftsidecv">
-                    {<PersonalData personalData={user}/>}
+                    {<PersonalData personalData={user} />}
                 </div>
                 <div className="rightsidecv">
                     <div className="intro-container">
                         <h1>Introduction</h1>
-                        {<Introductionedit user={user}/>}
+                        {<Introductionedit user={user} />}
                     </div>
-                    <div className="workexp-container">
+                { /*<div className="workexp-container">
                         <h2 className="headline workexp"><i className="fa fa-suitcase"></i>Work Experience</h2>
                         {user.workexperience.map((experience)=>(<EditableWorkExp key={experience.id} experience = {experience}/>))}
-                    </div>
-                    <button>Save changes</button>
-                </div>
+                    </div> */}
+                <button>Save changes</button>
+            </div>
 
 
 
 
-            </div >
-        </div>
+        </div >
+        </div >
     );
 };
 
