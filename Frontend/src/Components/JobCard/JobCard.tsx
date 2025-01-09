@@ -1,5 +1,6 @@
 import "./JobCard.css"
-import { JobOffer } from "../../Services/JobContext";
+/* import { JobOffer } from "../../Services/JobContext"; */
+import { JobOffer } from "../../Services/Employer";
 
 
 

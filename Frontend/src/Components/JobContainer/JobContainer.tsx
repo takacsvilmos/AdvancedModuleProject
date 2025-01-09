@@ -5,7 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { JobContext } from "../../Services/JobContext";
 import { AuthContext } from "../../Services/Auth";
 import { FetchJobOffers } from "../../Api";
-import { JobOffer } from "../../Services/JobContext";
+/* import { JobOffer } from "../../Services/JobContext"; */
+import { JobOffer } from "../../Services/Employer";
 
 const JobContainer = () => {
     const navigate = useNavigate();
@@ -39,10 +40,11 @@ const JobContainer = () => {
             alert("Login first!");
         }
     };
+    //console.log(jobContext.currentJob)
 
     return (
         <div className="jobContainer">
-            {jobOfferData?.map((job, index) => (
+            {jobOfferData.map((job, index) => (
                 <button key={index} onClick={() => handleClick(job)}>
                     <JobCard key={index} offer={job} />
                 </button>

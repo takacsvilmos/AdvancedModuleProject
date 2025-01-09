@@ -1,12 +1,12 @@
-import { CompanyType } from "../../Services/CompanyTypes"
 import { useState } from "react"
-import { JobOffer } from "../../Services/Employer"
+import { EmployerData, JobOffer } from "../../Services/Employer"
 import JobCard from "../JobCard/JobCard"
+import CompanyCard from "../CompanyCard/CompanyCard"
 import "../JobScreen.css"
 
 
 export type CompanyProps = {
-    company: CompanyType
+    company: EmployerData
     jobs: JobOffer[]
 }
 
@@ -27,19 +27,10 @@ const Company = ({ company, jobs }: CompanyProps) => {
 
 
     return (
-        <div className="companyCard">
+        <div>
+            <CompanyCard company={company}/>
             <div>
-                <h1>Company: {company.name}</h1>
-                <p>Headcourters: {company.location}</p>
-                <p>Area of expertise: {company.area}</p>
-            </div>
-            <div>
-                <p>Found in: {company.foundIn}</p>
-                <p>Company number: {company.company_number}</p>
-                <p>About us: {company.description}</p>
-            </div>
-            <div>
-                {company.job_offers.length > 0 && (
+                {jobs.length > 0 && (
                     <>
                         <button onClick={handleToggle}>
                             {showOffers ? "Hide offers" : "Show offers"}

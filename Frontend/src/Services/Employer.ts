@@ -3,25 +3,29 @@ import { createContext } from "react";
 
 export type JobOffer = {
   id: string,
-  name: string, 
+  name: string,
+  companyName: "",
   location: string, 
   rating: number, 
   recommendedFor: string, 
   date: string,
+  email: string,
   description: string,
-  company_id: string
-} | null;
+  employerId: string,
+  employer: EmployerData
+};
 
 
 export type EmployerData = {
-  address: string
-  companyName: string;
-  description: string 
-  email: string;
-  field: string[];
-  id: number;
-  phone: number;
-} | null
+  id: string,
+  email: string,  
+  companyName: string,
+  field: string[],
+  address: string,    
+  phone: number,
+  description: string,
+  jobOffers: JobOffer[]
+}
 
 export type EmployerContextType = {
   employer: EmployerData | null;
