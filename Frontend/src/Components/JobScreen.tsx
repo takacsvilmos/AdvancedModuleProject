@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import ProfilePanel from "./ProfilePanel/ProfilePanel";
 import Company from "./Company/Company";
 import { CompanyType } from "../Services/CompanyTypes";
-import JobContainer, { jobOffers } from "./JobContainer/JobContainer";
+import JobContainer from "./JobContainer/JobContainer";
 import "./JobScreen.css";
 
 import "./ProfilePanel/ProfilePanel.css"
@@ -13,9 +13,9 @@ import Navbar from "./Navbar";
 
 const JobScreen = () => {
     const jobContext = useContext(JobContext);
-    
 
-    const c_description: string = "We specialize in  off-shore oil rigs on the seas of England "
+
+    /*const c_description: string = "We specialize in  off-shore oil rigs on the seas of England "
     const c_description2: string = "We specialize in wood related work "
     const c_description3: string = "We specialize in buildings"
     const c_description4: string = "We specialize in long term workforce "
@@ -34,7 +34,7 @@ const JobScreen = () => {
         company3,
         company4,
         company5
-    ]
+    ]*/
 
 
 
@@ -48,8 +48,8 @@ const JobScreen = () => {
     if (!currentJob) {
 
         return <div>No job selected. Please go back and select a job.</div>;
- }
-   
+    }
+
 
     const selectedCompany = companies.find((company) => company?.id === currentJob.company_id);
     const selectedJobs = selectedCompany?.job_offers.filter(job => job.id !== currentJob.id);
@@ -57,13 +57,13 @@ const JobScreen = () => {
         return "No jobs"
     }
 
-    
+
 
     return (
         <>
             <Navbar />
             <div className="jobScreenContainer">
-                
+
                 <div className="jobScreenCompany">
                     {selectedCompany ? (
                         <Company company={selectedCompany} jobs={selectedJobs} />

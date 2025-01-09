@@ -140,8 +140,9 @@ public class EmployerController : ControllerBase
             return NotFound("There is no user with those specifications");
         }
 
-        user.CompanyName = employerData.CompanyName;
         user.Address = employerData.Address;
+        user.CompanyName = employerData.CompanyName;
+        user.Email = employerData.Email;
         user.Description = employerData.Description;
         user.Phone = employerData.Phone;
 
