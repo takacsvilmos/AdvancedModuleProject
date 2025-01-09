@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { EmployerData, JobOffer } from "../../Services/Employer"
 import JobCard from "../JobCard/JobCard"
+import CompanyCard from "../CompanyCard/CompanyCard"
 import "../JobScreen.css"
 
 
@@ -26,16 +27,8 @@ const Company = ({ company, jobs }: CompanyProps) => {
 
 
     return (
-        <div className="companyCard">
-            <div>
-                <h1>Company: {company.companyName}</h1>
-                <p>Headcourters: {company.address}</p>
-            </div>
-            <div>
-                <p>Phone: {company.phone}</p>
-                <p>Email: {company.email}</p>
-                <p>About us: {company.description}</p>
-            </div>
+        <div>
+            <CompanyCard company={company}/>
             <div>
                 {jobs.length > 0 && (
                     <>

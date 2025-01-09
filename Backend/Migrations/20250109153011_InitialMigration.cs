@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Backend.Migrations.ApplicationDb
+namespace Backend.Migrations
 {
     /// <inheritdoc />
     public partial class NewBalenciaga : Migration

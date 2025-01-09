@@ -44,11 +44,13 @@ const Navbar = ({ view, setView }: NavbarProps) => {
         userContext.setUser((prevUser) => ({
             ...prevUser, // Spread the existing user properties
             role: "", // Update the role property
+            username: "", // Provide default value
+            email: "",       // Provide default value
         }));
-        logOut()
-        if (setView) setView("home")
-        navigate("/")
-    }
+        logOut();
+        if (setView) setView("home");
+        navigate("/");
+    };
 
     const handleHomeClick = () => {
         if (setView) {

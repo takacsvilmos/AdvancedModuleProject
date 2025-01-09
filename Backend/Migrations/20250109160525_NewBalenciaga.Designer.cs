@@ -9,11 +9,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Backend.Migrations.ApplicationDb
+namespace Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<<< HEAD:Backend/Migrations/20250109153011_InitialMigration.Designer.cs
+    [Migration("20250109153011_InitialMigration")]
+    partial class InitialMigration
+========
     [Migration("20250109160525_NewBalenciaga")]
     partial class NewBalenciaga
+>>>>>>>> development:Backend/Migrations/20250109160525_NewBalenciaga.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

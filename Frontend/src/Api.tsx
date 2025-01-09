@@ -111,26 +111,44 @@ export const fetchEmployerData = async (email: string | undefined) => {
 };
 
 export const FetchJobOffers = async () => {
-  try {
-    const response = await fetch("api/Applicant/getJobOffers", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    if (data === null) {
-      console.log("no data");
+    try {
+        const response = await fetch("/api/Applicant/jobOffers", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        const data = await response.json();
+        if(data === null){
+            console.log("no data")
+        }
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
     }
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+}
 
-export const FetchEmployerData = async () => {
-  try {
-    const jwtToken = localStorage.getItem("authToken");
+export const FetchCompanies = async () => {
+    try {
+        const response = await fetch("/api/Applicant/employers", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        const data = await response.json();
+        if(data === null){
+            console.log("no data")
+        }
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+export const FetchEmployerData = async() => {
+  try{
+  const jwtToken = localStorage.getItem("authToken");
     if (!jwtToken) {
       console.error("No token found. Please log in.");
       //route back to login
@@ -153,6 +171,7 @@ export const FetchEmployerData = async () => {
     console.log(error);
     return null;
   }
+
 };
 
 export const PatchEmployerData = async (employerData: EmployerData) => {

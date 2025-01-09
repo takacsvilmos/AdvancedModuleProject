@@ -4,16 +4,24 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Backend.Migrations.ApplicationDb
+namespace Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:Backend/Migrations/20250109153011_InitialMigration.Designer.cs
+    [Migration("20250109153011_InitialMigration")]
+    partial class InitialMigration
+========
+    [Migration("20250109160525_NewBalenciaga")]
+    partial class NewBalenciaga
+>>>>>>>> development:Backend/Migrations/20250109160525_NewBalenciaga.Designer.cs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
