@@ -12,6 +12,7 @@ export type WorkExperience = {
 
 export type ApplicantData = {
   age: number;
+  name: string;
   language: string[];
   profession: string[];
   address: string;

@@ -1,7 +1,12 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../Services/User";
+import { UserContext, WorkExperience } from "../../Services/User";
 
-const EditableWorkExp = ({ experience }: any) => {
+
+type Props ={
+    experience: WorkExperience
+}
+
+const EditableWorkExp = ({ experience }: Props) => {
     const userContext = useContext(UserContext)
 
     if (!userContext) {
@@ -10,7 +15,7 @@ const EditableWorkExp = ({ experience }: any) => {
     const { user } = userContext
 
     const [isEditing, setIsEditing] = useState(false)
-    const [editedExperience, setEditedExperience] = useState(experience)
+    const [editedExperience, setEditedExperience] = useState<WorkExperience>()
 
     return (
         <div className="workexp">
@@ -20,9 +25,9 @@ const EditableWorkExp = ({ experience }: any) => {
                         <label>Company:</label>
                         <input
                             type="text"
-                            value={editedExperience.company}
+                            value={editedExperience?.company}
                             onChange={(e) =>
-                                setEditedExperience({
+                                editedExperience&&setEditedExperience({
                                     ...editedExperience,
                                     company: e.target.value,
                                 })
@@ -35,9 +40,9 @@ const EditableWorkExp = ({ experience }: any) => {
                             <input
                                 type="text"
                                 placeholder="Start Date"
-                                value={editedExperience.startingdate}
+                                value={editedExperience?.startingdate}
                                 onChange={(e) =>
-                                    setEditedExperience({
+                                    editedExperience&&setEditedExperience({
                                         ...editedExperience,
                                         startingdate: e.target.value,
                                     })
@@ -47,9 +52,9 @@ const EditableWorkExp = ({ experience }: any) => {
                             <input
                                 type="text"
                                 placeholder="End Date"
-                                value={editedExperience.enddate}
+                                value={editedExperience?.enddate}
                                 onChange={(e) =>
-                                    setEditedExperience({
+                                    editedExperience&&setEditedExperience({
                                         ...editedExperience,
                                         enddate: e.target.value,
                                     })
@@ -61,9 +66,9 @@ const EditableWorkExp = ({ experience }: any) => {
                         <label>Role:</label>
                         <input
                             type="text"
-                            value={editedExperience.role}
+                            value={editedExperience?.role}
                             onChange={(e) =>
-                                setEditedExperience({
+                                editedExperience&&setEditedExperience({
                                     ...editedExperience,
                                     role: e.target.value,
                                 })
@@ -73,19 +78,19 @@ const EditableWorkExp = ({ experience }: any) => {
                     <div className="input-group">
                         <label>Description:</label>
                         <textarea
-                            value={editedExperience.description}
+                            value={editedExperience?.description}
                             onChange={(e) =>
-                                setEditedExperience({
+                                editedExperience&&setEditedExperience({
                                     ...editedExperience,
                                     description: e.target.value,
                                 })
                             }
                         />
                     </div>
-                    <button onClick={() => setIsEditing(false)}>Save</button>
+                    <button onClick={() => setIsEditing(true)}>Save</button>
                 </div>
             ) : (
-                <div onClick={() => setIsEditing(true)}>
+                <div onClick={() => setIsEditing(false)}>
                     <h5 className="workname"><b>{experience.company}</b></h5>
                     <h6 className="workdate">
                         <i className="fa fa-calendar"></i>{experience.startingdate} - {experience.enddate}

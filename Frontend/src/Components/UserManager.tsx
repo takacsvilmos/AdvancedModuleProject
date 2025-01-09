@@ -22,11 +22,12 @@ const EmployerManager = () => {
     }, [])
 
     const handleChange = (key: string, value: string) => {
-        setEmployerData((prevState) => ({
+        setEmployerData((prevState) => prevState&&({
             ...prevState,
             [key]: value ?? "",
         }));
     };
+    
     const handleSubmit=async(e:any)=>{
         e.preventDefault()
         try {

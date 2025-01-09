@@ -21,6 +21,7 @@ export type EmployerData = {
   field: string[];
   id: number;
   phone: number;
+  jobOffers: JobOffer[]
 } | null
 
 export type EmployerContextType = {

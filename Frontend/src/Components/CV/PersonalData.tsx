@@ -1,13 +1,17 @@
 import { useState } from "react"
 import "./UserCV.css"
+import { ApplicantData } from "../../Services/User"
 
-const PersonalData = ({ personalData }: any) => {
+type Props ={
+    personalData: ApplicantData
+}
+const PersonalData = ({ personalData }: Props) => {
     const [isEditing, setIsEditing] = useState(false)
     const [editedPersonalData, setEditedPersonalData] = useState(personalData)
     const [profileImage, setProfileImage] = useState<string | null>(personalData.image)
 
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => { // base64-ben tárolni!!
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
             const imageUrl = URL.createObjectURL(file);

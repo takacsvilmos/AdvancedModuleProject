@@ -1,7 +1,12 @@
 import { useState } from "react"
 import "./UserCV.css"
+import { ApplicantData } from "../../Services/User"
 
-const Introductionedit = ({ user }: any) => {
+type Props ={
+    user: ApplicantData
+}
+
+const Introductionedit = ({ user }: Props) => {
     const [isEditing, setIsEditing] = useState(false)
     const [editDescription, setEditDescription] = useState(user)
 
