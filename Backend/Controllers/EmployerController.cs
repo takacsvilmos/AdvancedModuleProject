@@ -65,6 +65,35 @@ public class EmployerController : ControllerBase
 
     }
 
+    [HttpPatch("UpdateOffer"), Authorize]
+    
+    public async Task<ActionResult<JobOffer>> UpdateOffer([FromBody] JobOfferDto jobOfferDto)
+    {
+        string emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+        
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+        
+        var offerToEdit = _context.JobOffers.FirstOrDefault(offer => offer.Id == jobOfferDto.Id);
+        Console.WriteLine($"Offer from req: {offerToEdit}");
+        
+        if (offerToEdit != null)
+        {
+            offerToEdit.name = jobOfferDto.name;
+            offerToEdit.location = jobOfferDto.location;
+            offerToEdit.rating = jobOfferDto.rating;
+            offerToEdit.recommendedFor = jobOfferDto.recommendedFor;
+            offerToEdit.date = jobOfferDto.date;
+            offerToEdit.description = jobOfferDto.description;
+        }
+        
+        await _context.SaveChangesAsync();
+
+        return Ok(offerToEdit);
+    }
+
     [HttpGet("{email}"), Authorize]
     public async Task<ActionResult<EmployerDto>> GetEmployerData()
     {
@@ -119,5 +148,20 @@ public class EmployerController : ControllerBase
 
         return Ok("User data edited successfully");
     } 
+    
+    [HttpGet("EmployerJobOffers"), Authorize]
+    public async Task<ActionResult> GetJobOffer()
+    {
+        var emailFromToken = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+
+        if (string.IsNullOrEmpty(emailFromToken))
+        {
+            return Unauthorized("Invalid or missing email claim in the token.");
+        }
+
+        var searchedJobOffers = _context.JobOffers.Where(jobOffer => jobOffer.Email == emailFromToken);
+
+        return Ok(searchedJobOffers);
+    }
 
 }
