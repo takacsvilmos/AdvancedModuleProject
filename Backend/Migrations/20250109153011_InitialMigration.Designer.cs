@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Backend.Migrations.ApplicationDb
+namespace Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241216173441_RefactoredEmployerAndJO")]
-    partial class RefactoredEmployerAndJO
+    [Migration("20250109153011_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,10 +116,6 @@ namespace Backend.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -127,34 +123,28 @@ namespace Backend.Migrations.ApplicationDb
                     b.Property<Guid>("EmployerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.PrimitiveCollection<string>("Field")
+                    b.Property<string>("date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PicUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RequiredYearsOfExperience")
+                    b.Property<int>("rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkingHours")
-                        .HasColumnType("int");
+                    b.Property<string>("recommendedFor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

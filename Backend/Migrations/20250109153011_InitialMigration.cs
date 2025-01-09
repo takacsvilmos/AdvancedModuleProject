@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Backend.Migrations.ApplicationDb
+namespace Backend.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -37,11 +37,11 @@ namespace Backend.Migrations.ApplicationDb
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    company_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    field = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Field = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,28 +72,25 @@ namespace Backend.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobOffer",
+                name: "JobOffers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmployerEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Field = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RequiredYearsOfExperience = table.Column<int>(type: "int", nullable: false),
-                    Salary = table.Column<int>(type: "int", nullable: false),
-                    WorkingHours = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    rating = table.Column<int>(type: "int", nullable: false),
+                    recommendedFor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    date = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PicUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobOffer", x => x.Id);
+                    table.PrimaryKey("PK_JobOffers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobOffer_Employers_EmployerId",
+                        name: "FK_JobOffers_Employers_EmployerId",
                         column: x => x.EmployerId,
                         principalTable: "Employers",
                         principalColumn: "Id",
@@ -101,8 +98,8 @@ namespace Backend.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobOffer_EmployerId",
-                table: "JobOffer",
+                name: "IX_JobOffers_EmployerId",
+                table: "JobOffers",
                 column: "EmployerId");
 
             migrationBuilder.CreateIndex(
@@ -115,7 +112,7 @@ namespace Backend.Migrations.ApplicationDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "JobOffer");
+                name: "JobOffers");
 
             migrationBuilder.DropTable(
                 name: "WorkExperience");
