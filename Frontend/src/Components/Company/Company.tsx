@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { EmployerData, JobOffer } from "../../Services/Employer"
+import { EmployerData, JobOffer } from "../../Services/Employer"
 import JobCard from "../JobCard/JobCard"
 import CompanyCard from "../CompanyCard/CompanyCard"
 import "../JobScreen.css"

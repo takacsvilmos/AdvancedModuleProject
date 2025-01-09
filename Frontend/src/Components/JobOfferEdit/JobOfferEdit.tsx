@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, FormEventHandler } from "react";
 import Navbar from "../Navbar";
 import { UserContext } from "../../Services/User";
 import { JobOffer } from "../../Services/JobContext";
@@ -13,12 +13,43 @@ const JobUserCreationPage = () => {
         description: "",
         company_id: ""
     });
+    const [jobOfferList, setJobOfferList] = useState<JobOffer[]>([]);
     const userContext = useContext(UserContext)
     if (!userContext) {
         throw new Error("No User")
     }
 
     const { user } = userContext
+    useEffect(()=>{
+        const fetchData = async () => {
+        try {
+            const jwtToken = localStorage.getItem("authToken");
+            if (!jwtToken) {
+                console.error("No token found. Please log in.");
+                //route back to login
+                return;
+            }
+
+            const response = await fetch("/api/Employer/EmployerJobOffers", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${jwtToken}`
+                }
+            
+            })
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            const data = await response.json();
+            setJobOfferList(data);
+            
+
+        } catch (error) {
+            console.error("Error creating job offer:", error);
+        }
+    }
+    fetchData();
+    },[jobOffer])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -31,8 +62,8 @@ const JobUserCreationPage = () => {
                 return;
             }
 
-            const response = await fetch("/api/Employer/CreateOffer", {
-                method: "POST",
+            const response = await fetch("/api/Employer/UpdateOffer", {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${jwtToken}`
@@ -43,7 +74,7 @@ const JobUserCreationPage = () => {
                 throw new Error(`Error: ${response.status}`);
             }
             //const result = await response.json();
-            alert("Job offer created successfully.");
+            alert("Job offer edited successfully.");
 
         } catch (error) {
             console.error("Error creating job offer:", error);
@@ -57,11 +88,32 @@ const JobUserCreationPage = () => {
         [key]: value,}));
     };
 
-
+    const handleBange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const jobOfferName = event.target.value;
+        const filteredOffer = jobOfferList.filter(jobOffer => jobOffer?.name === jobOfferName);
+        setJobOffer(filteredOffer[0]);
+        console.log(jobOffer);
+        return event;
+    }
+    
     return (
         <div>
             <Navbar />
-            <h1>Job offer creation page</h1>
+            <h1>Editke your offer at your leisure</h1>
+            <div>{
+                jobOfferList.length == 0 ? <div>Loading...</div>
+                    : <form action="" onChange={handleBange}>
+                    <label htmlFor="EmployerJobOffers">Your Offers: </label>
+                    <select id="EmployerJobOffers" name="EmployerJobOffers">
+                        {jobOfferList.map((jobOffer, index) => (
+                            <option key={index} value={jobOffer?.name}>
+                                {jobOffer?.name}
+                            </option>
+                        ))}
+                    </select>
+                </form>
+                }</div>
+            
             <div>
                 {user?.role === "Employer" ? (
                     <form onSubmit={handleSubmit}>
@@ -122,7 +174,7 @@ const JobUserCreationPage = () => {
                         />
 
                         <button className="createJobOffer" type="submit">
-                            Create job offer
+                            Save Changes
                         </button>
                     </form>
                 ) : (
