@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import Home from './Components/Home/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthContext } from './Services/Auth';
@@ -8,7 +8,7 @@ import JobScreen from './Components/JobScreen';
 import { JobContext } from './Services/JobContext';
 import { JobOffer } from './Services/JobContext';
 import { UserContext, User } from './Services/User';
-import UserManager from './Components/UserManager';
+import EmployerManager from './Components/UserManager';
 import UserCv from './Components/CV/UserCv';
 import JobUserCreationPage from './Components/JobOfferCreationPage/JobOfferCreationPage';
 import { EmployerContext, EmployerData } from './Services/Employer';
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     element: <JobScreen />,
   },
   {
-    path: "/usermanager/:id",
-    element: <UserManager />
+    path: "/employermanager",
+    element: <EmployerManager />
   },
   {
     path: "usercv/:id",

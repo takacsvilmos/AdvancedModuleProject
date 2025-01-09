@@ -1,19 +1,8 @@
 import "./CompanyCard.css"
-
-type JobOffer = { id: number, name: string, location: string, rating: number, recommendedFor: string, date: string, description: string }
-type CompanyType = {
-    id: number,
-    name: string, 
-    location: string, 
-    company_number: number, 
-    area: string, 
-    foundIn: string,
-    description: string,
-    job_offers: JobOffer[]
-} | null;
+import { EmployerData } from "../../Services/Employer";
 
 type Company = {
-    company: CompanyType
+    company: EmployerData
 }
 
 const CompanyCard = ( {company} : Company) => {
@@ -24,13 +13,13 @@ const CompanyCard = ( {company} : Company) => {
     return (
         <div className="companycard">
             <div>
-                <h1>{company.name}</h1>
-                <p>{company.location}</p>
-                <p>{company.area}</p>
+                <h1>{company.companyName}</h1>
+                <p>{company.address}</p>
+                <p>{company.field.map((field)=> <p>{field}</p>)}</p>
             </div>
             <div>
-                <p>{company.foundIn}</p>
-                <p>{company.company_number}</p>
+                <p>{company.email}</p>
+                <p>{company.phone}</p>
                 <p>{company.description}</p>
             </div>
         </div>

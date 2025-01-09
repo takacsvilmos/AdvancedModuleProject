@@ -22,10 +22,12 @@ const Home = () => {
 
     const { user } = userContext
 
+    console.log(user)
+
     return (
         <>
             <Navbar view={view} setView={setView} />
-            {user?.role === "admin" && isLoggedIn ? <AdminScreen/> :
+            {user?.role === "Admin" && isLoggedIn ? <AdminScreen/> :
             <div className="content">
                 {isLoggedIn ? view === "home" && <h1>Welcome {user?.username}!</h1> : view === "home" && <h1>HomePage</h1>}
                 {view !== "signup" && view !== "login" && <JobContainer />}

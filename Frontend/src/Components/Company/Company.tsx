@@ -1,6 +1,6 @@
 import { CompanyType } from "../../Services/CompanyTypes"
 import { useState } from "react"
-import JobContainer from "../JobContainer/JobContainer"
+import { JobOffer } from "../../Services/Employer"
 import JobCard from "../JobCard/JobCard"
 import "../JobScreen.css"
 
@@ -37,7 +37,6 @@ const Company = ({ company, jobs }: CompanyProps) => {
                 <p>Found in: {company.foundIn}</p>
                 <p>Company number: {company.company_number}</p>
                 <p>About us: {company.description}</p>
-
             </div>
             <div>
                 {company.job_offers.length > 0 && (

@@ -7,7 +7,7 @@ const EditableWorkExp = ({ experience }: any) => {
     if (!userContext) {
         throw new Error("no")
     }
-    const { user } = userContext // itt jön majd az api!!!
+    const { user } = userContext
 
     const [isEditing, setIsEditing] = useState(false)
     const [editedExperience, setEditedExperience] = useState(experience)

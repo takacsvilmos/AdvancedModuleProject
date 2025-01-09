@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { EmployerData } from "./Employer";
 
 export type WorkExperience = {
     id: number;
