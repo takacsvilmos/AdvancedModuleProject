@@ -36,6 +36,9 @@ const navigate = useNavigate()
         navigate("/joboffercreation");
         console.log("will go to job offer creation page");
     }
+    const handleEditJobOffer = ()=>{
+        navigate("/jobofferedit");
+    }
 
 
     return(
@@ -46,7 +49,7 @@ const navigate = useNavigate()
                     <div>
                         {user?.role === "Employer" ? 
                         <div><button onClick={handleCreateJobOffer}>Create job offer</button>
-                        <button onClick={handleCreateJobOffer}>Edit job offer</button>
+                        <button onClick={handleEditJobOffer}>Edit job offer</button>
                         </div>: 
                         <button onClick={handleCv}>Add CV</button>
                         }
