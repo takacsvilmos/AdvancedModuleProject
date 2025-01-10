@@ -4,9 +4,8 @@ import { ProfilePanelContext } from "../../Services/ProfilePanalAuth"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Services/Auth";
 import { EmployerContext } from "../../Services/Employer";
-
 import "./ProfilePanel.css"
-import { fetchEmployerData } from "../../Api";
+
 
 
 const ProfilePanel = () =>{

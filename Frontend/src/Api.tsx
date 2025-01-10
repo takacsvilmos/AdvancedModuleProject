@@ -1,56 +1,5 @@
 import { EmployerData } from "./Services/Employer";
 
-export const loginUser = async (loginData: {
-  email: string;
-  password: string;
-}) => {
-  try {
-    const response = await fetch("http://localhost:5177/Service/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginData),
-    });
-
-    if (!response.ok) {
-      throw new Error("Invalid email or password");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-};
-
-export const SignUpUser = async (user: {
-  Email: string;
-  Password: string;
-  Role: string;
-}) => {
-  try {
-    const response = await fetch("http://localhost:5177/Service/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-
-    if (!response.ok) {
-      throw new Error("Something go wrong! try again later");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-};
-
 export const loginUserApi = async (loginData: {
   email: string;
   password: string;
@@ -153,26 +102,27 @@ export const FetchEmployerData = async() => {
       console.error("No token found. Please log in.");
       //route back to login
       return;
+    }    
+        const response = await fetch(`/api/Employer/EmployerData`,{
+            method: "GET",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwtToken}`
+            },
+        })
+        if(!response.ok){
+            console.error(`Error: ${response.status} ${response.statusText}`)
+            return null
+        }
+        const data = await response.json()
+        return data
+        
+    } catch (error) {
+        console.log(error)
+        return null
     }
-    const response = await fetch(`/api/Employer/EmployerData`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    if (!response.ok) {
-      console.error(`Error: ${response.status} ${response.statusText}`);
-      return null;
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+}
 
-};
 
 export const PatchEmployerData = async (employerData: EmployerData) => {
   try {
@@ -202,3 +152,82 @@ export const PatchEmployerData = async (employerData: EmployerData) => {
     return null;
   }
 };
+
+
+export const FetchAllEmployers=async()=>{
+    const jwtToken = localStorage.getItem("authToken")
+    if (!jwtToken) {
+        console.error("No token found. Please log in.")
+        return
+    }
+    try {
+        const response = await fetch("/api/Admin/getEmployers",{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${jwtToken}`
+            }
+        })
+        if (response.status === 401) {
+            throw new Error("Unauthorized. Please log in again.");
+        }
+
+        if (response.status === 404) {
+            throw new Error("No employers found.");
+        }
+
+        if (!response.ok) {
+            throw new Error("Something went wrong in the backend.");
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const FetchApplicantData = async() => {
+    const jwtToken = localStorage.getItem("authToken")
+    if (!jwtToken) {
+        console.error("No token found. Please log in.")
+        return
+    }
+    try {
+        const response = await fetch("/api/Applicant/getApplicantData",{
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+            }
+        })
+        if(!response.ok){
+            throw new Error("Somthing go wrong")
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const FetchAllApplicant=async()=>{
+    const jwtToken = localStorage.getItem("authToken")
+    if (!jwtToken) {
+        console.error("No token found. Please log in.")
+        return
+    }
+    try {
+        const response = await fetch("/api/Admin/GetAllApplicant",{
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+            }
+        })
+        if(!response.ok){
+            throw new Error("Something go wrong")
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
