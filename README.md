@@ -65,7 +65,7 @@ This will set up the API and database within containers.
 ## API Endpoints
 | Method | Endpoint       | Description |
 |--------|---------------|-------------|
-| GET    | //api/Employer/EmployerJobOffers | Retrieve all job listings |
+| GET    | /api/Employer/EmployerJobOffers | Retrieve all job listings |
 | POST   | /api/Employer/CreateOffer | Create a new job listing |
 
 ## Features
