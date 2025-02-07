@@ -52,7 +52,7 @@ const JobUserCreationPage = () => {
     };
 
     const handleChange = (key: string, value: string | number) => {
-       setJobOffer((prev)=>({   
+       setJobOffer((prev: JobOffer)=>({   
         ...prev,
         [key]: value,}));
     };
