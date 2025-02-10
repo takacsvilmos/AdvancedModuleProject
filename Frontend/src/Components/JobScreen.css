@@ -1,0 +1,29 @@
+/* Parent container */
+.jobScreenContainer {
+    display: flex; /* Enable flexbox */
+    flex-direction: row; /* Arrange items in a row */
+    gap: 20px; /* Add some space between the containers */
+    justify-content: space-between; /* Optional: Distribute extra space */
+    align-items: flex-start; /* Optional: Align items at the top */
+    margin-top: 20dvh;
+  }
+  
+  /* Individual child containers */
+  .jobScreenCompany {
+    flex: 1; /* Adjust the width of this container (optional) */
+    padding: 10px; /* Add some padding */
+    border: 1px solid #ccc; /* Optional: Add a border for visibility */
+  }
+  
+  .jobScreenJob {
+    flex: 2; /* Adjust the width of this container (optional) */
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .jobScreenCard {
+    flex: 1; /* Adjust the width of this container (optional) */
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  

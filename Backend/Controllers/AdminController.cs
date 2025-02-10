@@ -1,4 +1,6 @@
-using Backend.Repositories;
+using System.Net;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -7,17 +9,47 @@ namespace Backend.Controllers;
 
 public class AdminController : ControllerBase
 {
-    private readonly IAdminRepo _adminRepository;
 
-    public AdminController(IAdminRepo adminRepository)
+    [HttpGet("test-auth"), Authorize(Roles = "Admin")]
+    public IActionResult TestAuth()
     {
-        _adminRepository = adminRepository;
+        var user = HttpContext.User;
+        var roles = user.Claims
+            .Where(c => c.Type == ClaimTypes.Role)
+            .Select(c => c.Value)
+            .ToList();
+
+        return Ok(new { User = user.Identity.Name, Roles = roles });
+    }
+    
+    [HttpGet("admin/users"), Authorize(Roles="Admin")]
+    public async Task <IActionResult> GetAllUsers()
+    {
+        return BadRequest();
+    }
+    
+    [HttpPost("admin/users")]
+    public IActionResult CreateUserByAdmin()
+    {
+        return Ok();
+    }
+    
+    [HttpGet("admin/users/{id}")]
+    public IActionResult GetUserById()
+    {
+        return Ok();
     }
 
-    [HttpGet("admin")]
-    public IActionResult GetAllUsers()
+    [HttpPut("admin/users/{id}")]
+    public IActionResult UpdateUserById()
     {
-        var result = _adminRepository.GetAllUsers();
-        return Ok(result);
+        return Ok();
     }
+
+    [HttpDelete("admin/users/{id}")]
+    public IActionResult DeleteUserById()
+    {
+        return Ok();
+    }
+    
 }

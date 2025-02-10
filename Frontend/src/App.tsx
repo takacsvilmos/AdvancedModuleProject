@@ -1,25 +1,76 @@
-import { useState } from 'react'
-import Home from './Home'
-import Login from './Login'
-import SignUp from './SignUp'
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { useState} from 'react';
+import Home from './Components/Home/Home';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AuthContext } from './Services/Auth';
+import { ProfilePanelContext } from './Services/ProfilePanalAuth';
+import './App.css';
+import JobScreen from './Components/JobScreen';
+import { JobContext } from './Services/JobContext';
+import { JobOffer } from './Services/JobContext';
+import { UserContext, User } from './Services/User';
+import EmployerManager from './Components/UserManager';
+import UserCv from './Components/CV/UserCv';
+import JobUserCreationPage from './Components/JobOfferCreationPage/JobOfferCreationPage';
+import { EmployerContext, EmployerData } from './Services/Employer';
+import JobOfferEdit from './Components/JobOfferEdit/JobOfferEdit';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/joboffer/:id",
+    element: <JobScreen />,
+  },
+  {
+    path: "/employermanager",
+    element: <EmployerManager />
+  },
+  {
+    path: "usercv/:id",
+    element: <UserCv />
+  },
+  {
+    path: "/joboffercreation",
+    element: <JobUserCreationPage />
+  },
+  {
+    path: "/jobofferedit",
+    element: <JobOfferEdit />
+  }
+
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentJob, setCurrentJob] = useState<JobOffer>(null);
+  const [user, setUser] = useState<User | null>(null)
+  const [employer, setEmployer] = useState<EmployerData | null>(null)
 
   return (
-    <>
-      <div>
-        <Routes>
-          <Route path='/' element ={<Home/>}/>
-          <Route path='/login' element ={<Login/>}/>
-          <Route path='/signup' element ={<SignUp/>}/>
-        </Routes>
-      </div>
-    </>
+    <AuthContext.Provider value={{
+      isLoggedIn,
+      logIn: () => { setIsLoggedIn(true) },
+      logOut: () => setIsLoggedIn(false)
+    }}>
+      <UserContext.Provider value={{ user, setUser }}>
+        <EmployerContext.Provider value={{ employer, setEmployer }}>
+          <ProfilePanelContext.Provider value={{
+            isOpen,
+            doOpen: () => { setIsOpen(true) },
+            onClose: () => { setIsOpen(false) },
+          }}>
+            <JobContext.Provider value={{ currentJob, setCurrentJob }}>
+              <RouterProvider router={router} />
+            </JobContext.Provider>
+          </ProfilePanelContext.Provider>
+        </EmployerContext.Provider>
+      </UserContext.Provider>
+    </AuthContext.Provider>
   );
-};
+}
 
-export default App
+export default App;
+

@@ -1,17 +1,29 @@
-using Backend.Repositories;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Backend.Data;
 
 namespace Backend.Controllers;
 [ApiController]
-[Route("[controller]")]
+[Route("/api/[controller]")]
 public class ApplicantController : ControllerBase
 {
-    private readonly IApplicantRepo _applicantRepo;
+    private readonly ApplicationDbContext _context;
 
-    public ApplicantController(IApplicantRepo applicantRepo)
+    public ApplicantController(ApplicationDbContext context)
     {
-        _applicantRepo = applicantRepo;
+        _context = context;
     }
+    
+    [HttpGet("Profile"), Authorize]
+    public IActionResult Profile()
+    {
+        var email = HttpContext.User.FindFirst(ClaimTypes.Email).Value;
+
+        return Ok(email);
+    }
+
 
     [HttpPut("update")]
     public IActionResult UpdatePersonalData()
@@ -29,6 +41,18 @@ public class ApplicantController : ControllerBase
     public IActionResult DeleteCV()
     {
         throw new NotImplementedException();
+    }
+    
+    [HttpGet("jobOffers")]
+    public IActionResult GetAllJobOffers()
+    {
+        return Ok(_context.JobOffers);
+    }
+    
+    [HttpGet("employers")]
+    public IActionResult GetAllEmployers()
+    {
+        return Ok(_context.Employers);
     }
 
 }

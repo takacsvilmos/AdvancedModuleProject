@@ -1,0 +1,242 @@
+.CV-container {
+    display: flex;
+    justify-content: space-between;
+    width: 70dvw;
+    margin-top: 20dvh;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.leftsidecv {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.leftsidecv:hover{
+    background-color: #f0f8ff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+
+.leftsidecv h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.leftsidecv p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #666;
+}
+
+.leftsidecv .languange {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.leftsidecv .languange div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rightsidecv {
+    width: 60%;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.intro-container {
+    margin-bottom: 20px;
+}
+
+.intro-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.intro-description {
+    font-size: 1rem;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.intro-description:hover{
+    background-color: #f0f8ff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.workexp-container {
+    margin-bottom: 20px;
+}
+
+.workexp-container .headline {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.workexp {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.workexp:hover {
+    background-color: #f0f8ff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.workexp h5 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.workexp h6 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.workexp p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/*Editing css*/
+.editing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.dates {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+input,
+textarea {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: none;
+    height: 60px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.description{
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #666;
+}
+
+.leftsidecv img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+}
+
+/* Alapértelmezett üres avatár */
+.leftsidecv img.empty-avatar {
+    background-color: #f0f0f0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #aaa;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid #ddd;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.editing-container .profile-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 2px solid #007bff;
+}
+
+.file-upload {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.file-upload input[type="file"] {
+    margin-top: 5px;
+}
+
+
+
+
+
+
+

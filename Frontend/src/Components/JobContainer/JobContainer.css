@@ -1,0 +1,8 @@
+.jobContainer{
+    box-shadow: 0px 4px 16px 0px;
+    width: 60dvw;
+    height: 70dvh;
+    border-radius: 10px;
+    padding: 4px 16px;
+    overflow: scroll;
+}
